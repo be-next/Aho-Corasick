@@ -1,3 +1,5 @@
+#include <string>
+
 #include "lexicographic_tree.hh"
 #include "file_to_buffer.hh"
 
@@ -9,6 +11,7 @@ int main(int argc, char **argv) {
       exit(1);
     }
 
+    std::string file_buffer;
   String buffer;
   File_To_Buffer fb;
   LexicographicTree lt;
@@ -22,22 +25,23 @@ int main(int argc, char **argv) {
   lt.BuildSupplys(); /* Calcul des suppleances */
   lt.Print();        /* Affichage de l'arbre */
 
-  buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
-
+    file_buffer = fb.Load2stdstring(argv[argc - 1]); /* Chargement du texte */
+    
+    
   int line = 1;  /* Compteur de ligne */
   int place = 1; /* Compteur de deplacement sur une ligne */
   int words = 1;
 
-  for (int count = 0; count < buffer.GetSize(); count++, place++) /* Pour toutes les lettres du texte */
+  for (int count = 0; count < file_buffer.size(); count++, place++) /* Pour toutes les lettres du texte */
   {
-    if (buffer[count] == '\n') /* si fin de ligne */
+    if (file_buffer[count] == '\n') /* si fin de ligne */
     {
       line++;    /* incrementer le compteur de ligne */
       place = 1; /* Reinitialiser le compteur de deplacement */
     }
     else /* si non */
     {
-      Vector<String *> &result = lt.Transition(buffer[count]); /* Calculer la transition */
+      Vector<String *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
 
       for (int lcount = result.GetSize() - 1; lcount >= 0; lcount--) /* Afficher tous les resultats */
       {

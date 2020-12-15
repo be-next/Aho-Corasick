@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <iostream>
+#include <string>
 
 
 class String {
@@ -17,11 +18,12 @@ public:
   String( void );
   String( char * );
   String( const String & );
-  
+    String( std::string & );
   ~String( void );
   
   String & operator = ( char );
   String & operator = ( char * );
+    String & operator = ( std::string & );
   String & operator = ( const String & );
 
   String & operator += ( char );
@@ -84,6 +86,13 @@ String::String( const String & instance )
   strcpy( Data, instance.Data );
 }
 
+// Constructeur de copie avec une std::string
+String::String( std::string & new_string ) {
+    Size = int(new_string.size());
+    Data = new char[Size+1];
+    strcpy( Data, new_string.data() );
+}
+
 
 /*
 * Destructeur
@@ -120,6 +129,13 @@ String & String::operator = ( char * new_data )
   return (*this);
 }
 
+String & String::operator = ( std::string & new_string ) {
+    Size = int(new_string.size());
+    Data = ( char * ) realloc( Data, Size+1 );
+    strcpy( Data, new_string.data() );
+    
+    return (*this);
+}
 
 /*
 * operateur de copie avec une String

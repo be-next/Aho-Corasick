@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 
 #include "string.hh"
 
@@ -21,6 +23,7 @@ public:
   String Load( char * );
   void Save( char *, String & );
 
+    std::string Load2stdstring( char * );
 };
 
 
@@ -50,7 +53,7 @@ void File_To_Buffer::Close( int error )
   if( error || fail() )
     {
         std::cerr << "Something strange happened\n";
-      clear();
+        clear();
     }
 
   close();
@@ -76,6 +79,15 @@ String File_To_Buffer::Load( char * name )
   Close( !eof() );
 
   return buffer;
+}
+
+std::string File_To_Buffer::Load2stdstring( char * file_name ) {
+    this->Open( file_name, std::ios::in );
+    
+    std::stringstream strStream;
+    strStream << this->rdbuf(); //read the file
+    
+    return strStream.str();
 }
 
 
