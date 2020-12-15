@@ -53,17 +53,18 @@ LexicoNode * LexicographicTree::NewLexicoNode( void )
 */
 void LexicographicTree::Print( LexicoNode * lnode )
 {
-  if( lnode != NULL )  /* Si l'arbre est construit */
+    if( lnode != NULL )  /* Si l'arbre est construit */
     {
         std::cout << "(" << lnode->Character << "-" << lnode->Number;  /* Affiche le contenu */
         std::cout << "[";
-      if( lnode->Supply != NULL )
-          std::cout << lnode->Supply->Character << "-" << lnode->Supply->Number;  /* Affiche la suppleance */
+        if( lnode->Supply != NULL )
+            std::cout << lnode->Supply->Character << "-" << lnode->Supply->Number;  /* Affiche la suppleance */
         std::cout << "]";
 
-      /* Recommencer avec ses fils s'il y en a */
-        for( int count = 0; count < lnode->Childs.GetSize(); count++ )
+        /* Recommencer avec ses fils s'il y en a */
+        for( int count = 0; count < lnode->Childs.GetSize(); count++ ) {
             Print( lnode->Childs[ count ] );
+        }
 
         std::cout << ")";
     }
@@ -77,15 +78,15 @@ void LexicographicTree::Print( LexicoNode * lnode )
 */
 void LexicographicTree::BuildSupplys( LexicoNode * lnode )
 {
-  if( lnode->Childs.GetSize() )  /* Si le noeud n'est pas une feuille */
+    if( lnode->Childs.GetSize() )  /* Si le noeud n'est pas une feuille */
     {
-      for( int count = 0; count < lnode->Childs.GetSize(); count++ )  /* Pour tous ces fils */
-	{
-	  if( lnode->Childs[ count ]->Supply == NULL )  /* si la suppleance n'est pas calculee */
-	    FindSupply( lnode->Supply, lnode->Childs[ count ] );  /* la chercher */
-
-	  BuildSupplys( lnode->Childs[ count ] );  /* recommencer avec le fils */
-	}
+        for( int count = 0; count < lnode->Childs.GetSize(); count++ )  /* Pour tous ces fils */
+        {
+            if( lnode->Childs[ count ]->Supply == NULL )  /* si la suppleance n'est pas calculee */
+                FindSupply( lnode->Supply, lnode->Childs[ count ] );  /* la chercher */
+            
+            BuildSupplys( lnode->Childs[ count ] );  /* recommencer avec le fils */
+        }
     }
 }
 
@@ -97,26 +98,26 @@ void LexicographicTree::BuildSupplys( LexicoNode * lnode )
 */
 void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child )
 {
-  LexicoNode * nextNode;
+    LexicoNode * nextNode;
+    
+    if( snode->Supply == NULL )  /* Si la suppleance du noeud de suppleance du pere n'existe pas */
+        FindSupply( snode->Father->Supply, snode );  /* on la trouve. */
 
-  if( snode->Supply == NULL )  /* Si la suppleance du noeud de suppleance du pere n'existe pas */
-    FindSupply( snode->Father->Supply, snode );  /* on la trouve. */
-
-  if(( nextNode = snode->TestChilds( child->Character )) != NULL )  /* Si la suppleance du pere a un */
-    if( child != nextNode )                            /* noeud contenant la lettre de son fils, et que */
-      {                                                /* ce noeud n'est pas le fils, alors ce noeud */
-	child->Supply = nextNode;                      /* devient le noeud de suppleance du fils. */
-	child->State += child->Supply->State;          /* Le fils ajoute a ses etats terminaux ceux */
-      }                                                /* de son noeud de suppleance */
-    else                          /* si le noeud est le fils, alors la suppleance du fils est Root. */
-      child->Supply = Root;
-  else
-    if( snode == Root )      /* Si la suppleance du pere est Root et qu'il n'a pas de noeud contenant la */
-      child->Supply = Root;  /* lettre du fils, alors la suppleance du fils est egale a Root. */
-    else
-      FindSupply( snode->Supply, child );  /* si non, on recherche la suppleance du fils avec la suppleance */
-}                                          /* de la suppleance du pere recursivement. */
-
+    if(( nextNode = snode->TestChilds( child->Character )) != NULL ) { /* Si la suppleance du pere a un */
+        if( child != nextNode )                          /* noeud contenant la lettre de son fils, et que */
+        {                                                /* ce noeud n'est pas le fils, alors ce noeud */
+            child->Supply = nextNode;                    /* devient le noeud de suppleance du fils. */
+            child->State += child->Supply->State;        /* Le fils ajoute a ses etats terminaux ceux de son noeud de suppleance */
+        } else {                                         /* si le noeud est le fils, alors la suppleance du fils est Root. */
+            child->Supply = Root;
+        }
+    } else {
+        if( snode == Root )        /* Si la suppleance du pere est Root et qu'il n'a pas de noeud contenant la */
+            child->Supply = Root;  /* lettre du fils, alors la suppleance du fils est egale a Root. */
+        else
+            FindSupply( snode->Supply, child );  /* si non, on recherche la suppleance du fils avec la suppleance */
+    }                                            /* de la suppleance du pere recursivement. */
+}
 
 /**************************** Services **************************/
 
@@ -206,19 +207,19 @@ void LexicographicTree::Print( void )
 */
 Vector<String *> & LexicographicTree::Transition( char newCharacter )
 {
-  LexicoNode * nextNode;
+    LexicoNode * nextNode;
 
-  /* s'il existe un noeud suivant avec la lettre donnee en argument */
-  if(( nextNode = Scanner->TestChilds( newCharacter )) != NULL )
-    return ( Scanner = nextNode )->State;  /* on retourne sa liste d'etat */
-  else
-    if( Scanner == Root )  /* Si le noeud en cours est Root et qu'il n'a pas de fils avec la lettre */
-      return Scanner->State;  /* on retourne sa liste d'etat */
-    else
-      {
-	Scanner = Scanner->Supply;  /* si le noeud en cours n'est pas Root, alors on recommence */
-	return Transition( newCharacter );  /* recursivement avec son noeud de suppleance */
-      }
+    /* s'il existe un noeud suivant avec la lettre donnee en argument */
+    if(( nextNode = Scanner->TestChilds( newCharacter )) != NULL ) {
+        return ( Scanner = nextNode )->State;  /* on retourne sa liste d'etat */
+    } else {
+        if( Scanner == Root ) { /* Si le noeud en cours est Root et qu'il n'a pas de fils avec la lettre */
+            return Scanner->State;  /* on retourne sa liste d'etat */
+        } else {
+            Scanner = Scanner->Supply;  /* si le noeud en cours n'est pas Root, alors on recommence */
+            return Transition( newCharacter );  /* recursivement avec son noeud de suppleance */
+        }
+    }
 }
 
 

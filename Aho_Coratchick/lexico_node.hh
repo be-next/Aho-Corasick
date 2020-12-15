@@ -13,51 +13,51 @@
 
 class LexicoNode {
 private:
-
-  LexicoNode * Dicho( char &, int, int );
-
+    
+    LexicoNode * Dicho( char &, int, int );
+    
 public:
 
-  int Number;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
-  Vector<String *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
-                          un etat terminal, sinon State contient le ou les mots correspondants
-                          a l'etat terminal */
-  char Character;  /* Variable contenant le caractere */
-  LexicoNode * Supply;  /* Pointeur sur le noeud de suppleance */
-  LexicoNode * Father;  /* Pointeur sur le noeud pere */
-  Vector<LexicoNode *> Childs;  /* Tableau trie des noeuds fils */
+    int Number;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
+    Vector<String *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+                              un etat terminal, sinon State contient le ou les mots correspondants
+                              a l'etat terminal */
+    char Character;  /* Variable contenant le caractere */
+    LexicoNode * Supply;  /* Pointeur sur le noeud de suppleance */
+    LexicoNode * Father;  /* Pointeur sur le noeud pere */
+    Vector<LexicoNode *> Childs;  /* Tableau trie des noeuds fils */
 
 
-  LexicoNode( void );
-  ~LexicoNode( void );
+    LexicoNode( void );
+    ~LexicoNode( void );
 
-  int operator <= ( LexicoNode & );
-  int operator > ( LexicoNode & );
+    int operator <= ( LexicoNode & );
+    int operator > ( LexicoNode & );
 
-  LexicoNode * TestChilds( char );
+    LexicoNode * TestChilds( char );
 
 };
 
 
-/*
-* Fonction de recherche dichotomique
-*/
+//
+// Fonction de recherche dichotomique
+//
 LexicoNode * LexicoNode::Dicho( char & to_search, int down, int up )
 {
-  if( down <= up )  /* si la borne basse est plus petite que la borne haute */
+    if( down <= up )  /* si la borne basse est plus petite que la borne haute */
     {
-      int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
-
-      if( to_search == Childs[ center ]->Character )  /* si le char cherche = le char du milieu */
-	return Childs[ center ];                      /* alors retourner son LexicoNode */
-      else                                            /* si non */
-	if( to_search < Childs[ center ]->Character ) /* si le char cherche est plus petit */
-	  return Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
-	else                                          /* si non */
-	  return Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
+        int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
+        
+        if( to_search == Childs[ center ]->Character )  /* si le char cherche = le char du milieu */
+            return Childs[ center ];                      /* alors retourner son LexicoNode */
+        else                                            /* si non */
+            if( to_search < Childs[ center ]->Character ) /* si le char cherche est plus petit */
+                return Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
+            else                                          /* si non */
+                return Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
     }
-  else                                                /* si non */
-    return ( LexicoNode * ) NULL;                     /* retourner NULL */
+    else                                                /* si non */
+        return ( LexicoNode * ) NULL;                     /* retourner NULL */
 }
 
 
