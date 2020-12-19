@@ -13,6 +13,8 @@
 #include "lexico_node.hh"
 
 #include <vector>
+#include <string>
+#include <iostream>
 
 
 class LexicographicTree {
@@ -32,10 +34,10 @@ public:
   LexicographicTree( void );
   ~LexicographicTree( void );
 
-  void AddWord( String & );
+  void AddWord( const std::string & );
   void BuildSupplys( void );
   void Print( void );
-  std::vector<String *> & Transition( char );
+  std::vector<std::string *> & Transition( char );
 };
 
 
@@ -146,14 +148,14 @@ LexicographicTree::~LexicographicTree( void ) {
 * Void AddWorld( String & new_world )
 *  Ajoute un mot dans l'arbre lexicographique
 */
-void LexicographicTree::AddWord( String & new_word ) {
+void LexicographicTree::AddWord( const std::string & new_word ) {
     int count;
     LexicoNode * currentNode = Root;
     LexicoNode * nextNode = Root; // Pour pas etre a zero !
     char currentCharacter;
 
     /* Pour toutes les lettres du mot, tant qu'il existe un noeud pour la lettre */
-    for( count = 0; (count < new_word.GetSize()) && nextNode != NULL; count++ ) {
+    for( count = 0; (count < new_word.size()) && nextNode != NULL; count++ ) {
         currentCharacter = new_word[count];
         
         if( ( nextNode = currentNode->TestChilds( currentCharacter )) != NULL )
@@ -163,7 +165,7 @@ void LexicographicTree::AddWord( String & new_word ) {
     if( nextNode == NULL ) { /* s'il n'existe pas de noeud correspondant a la lettre */
         LexicoNode * newNode; /* On cree un nouveau noeud avec la lettre en question */
         
-        for( --count ; count < new_word.GetSize(); count++ ) {
+        for( --count ; count < new_word.size(); count++ ) {
             currentCharacter = new_word[count];
             newNode = NewLexicoNode();
             newNode->Number = Ncount++;
@@ -173,7 +175,8 @@ void LexicographicTree::AddWord( String & new_word ) {
             currentNode = newNode;
         }
     }
-    currentNode->State.push_back( new_word.SelfCopy() );  /* On ajoute le mot a la liste des etats terminaux */
+    
+    currentNode->State.push_back( new std::string( new_word ) );  /* On ajoute le mot a la liste des etats terminaux */
 }                                               /* du dernier noeud trouve */
 
 
@@ -201,7 +204,7 @@ void LexicographicTree::Print( void ) {
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-std::vector<String *> & LexicographicTree::Transition( char newCharacter ) {
+std::vector<std::string *> & LexicographicTree::Transition( char newCharacter ) {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */

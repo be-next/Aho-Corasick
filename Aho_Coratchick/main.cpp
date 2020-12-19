@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "lexicographic_tree.hh"
 #include "file_to_buffer.hh"
@@ -13,7 +14,7 @@ int main(int argc, char **argv) {
     }
     
     std::string file_buffer;
-    String buffer;
+    std::string buffer;
     File_To_Buffer fb;
     LexicographicTree lt;
     
@@ -42,14 +43,14 @@ int main(int argc, char **argv) {
         }
         else /* si non */
         {
-            std::vector<String *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
+            std::vector<std::string *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
 
             for (int lcount = int(result.size() - 1); lcount >= 0; lcount--) /* Afficher tous les resultats */
             {
                 std::cout << words++ << "_ ";
                 std::cout << *(result[lcount]);
                 std::cout << " ---> ligne " << line;
-                std::cout << " en position " << (place - result[lcount]->GetSize()) << std::endl;
+                std::cout << " en position " << (place - result[lcount]->size()) << std::endl;
             }
         }
     }

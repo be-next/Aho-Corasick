@@ -8,9 +8,8 @@
 #ifndef __LEXICO_NODE_HH__
 #define __LEXICO_NODE_HH__
 
-#include "string.hh"
-
 #include <vector>
+#include <string>
 
 class LexicoNode {
 private:
@@ -20,7 +19,7 @@ private:
 public:
 
     int Number;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
-    std::vector<String *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+    std::vector<std::string *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
                               un etat terminal, sinon State contient le ou les mots correspondants
                               a l'etat terminal */
     char Character;  /* Variable contenant le caractere */
@@ -67,8 +66,7 @@ LexicoNode * LexicoNode::Dicho( char & to_search, int down, int up ) {
 /*
 * Constructeur vide, initialisation du noeud.
 */
-LexicoNode::LexicoNode( void ) : Childs(), State()
-{
+LexicoNode::LexicoNode( void ) : Childs(), State() {
   Character = '\0';  /* Character = caractere NULL */
   Supply    = NULL;  /* Les deux pointeurs pointent sur NULL */
   Father    = NULL;
@@ -78,8 +76,8 @@ LexicoNode::LexicoNode( void ) : Childs(), State()
 /*
 * Destructeur
 */
-LexicoNode::~LexicoNode( void )
-{}
+LexicoNode::~LexicoNode( void ) {
+}
 
 
 /*
@@ -87,8 +85,7 @@ LexicoNode::~LexicoNode( void )
 *  Teste si un des fils du noeud a comme Character to_search et retourne
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
-LexicoNode * LexicoNode::TestChilds( char to_search )
-{
+LexicoNode * LexicoNode::TestChilds( char to_search ) {
   return Dicho( to_search, 0, int(Childs.size() -1) );
 }
 
@@ -96,8 +93,7 @@ LexicoNode * LexicoNode::TestChilds( char to_search )
 /*
 * Definition de l'operateur <=
 */
-int LexicoNode::operator <= ( LexicoNode & instance )
-{
+int LexicoNode::operator <= ( LexicoNode & instance ) {
   if( Character <= instance.Character )
     return 1;
   else
@@ -108,8 +104,7 @@ int LexicoNode::operator <= ( LexicoNode & instance )
 /*
 * Definition de l'operateur >
 */
-int LexicoNode::operator > ( LexicoNode & instance )
-{
+int LexicoNode::operator > ( LexicoNode & instance ) {
   if( Character > instance.Character )
     return 1;
   else
