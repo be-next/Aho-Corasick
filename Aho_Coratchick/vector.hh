@@ -27,7 +27,7 @@ public:
 
   int GetSize(void);
   void SetSize(int);
-  void Sort(void);
+ // void Sort(void);
 
   friend std::ostream &operator<<(std::ostream &os, Vector &v)
   {
@@ -166,11 +166,11 @@ int Vector<Type>::GetSize(void)
 
 /*
 * Trie le tableau Data
-*/
+*
 template <class Type>
 void Vector<Type>::Sort(void)
 {
   QuickSort<Vector<Type>, Type>::Sort(*this);
-}
+}*/
 
 #endif /* __VECTOR_HH__ */

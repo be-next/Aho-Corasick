@@ -41,8 +41,7 @@ public:
 * LexicoNode * NewLexicoNode( void ):
 *  Retourne un pointeur sur un nouveau LexicoNode.
 */
-LexicoNode * LexicographicTree::NewLexicoNode( void )
-{
+LexicoNode * LexicographicTree::NewLexicoNode( void ) {
   return new LexicoNode;
 }
 
@@ -51,14 +50,14 @@ LexicoNode * LexicographicTree::NewLexicoNode( void )
 * void Print( LexicoNode * lnode ):
 *  Fonction recursive d'affichage de l'arbre
 */
-void LexicographicTree::Print( LexicoNode * lnode )
-{
-    if( lnode != NULL )  /* Si l'arbre est construit */
-    {
+void LexicographicTree::Print( LexicoNode * lnode ) {
+    if( lnode != NULL ) { /* Si l'arbre est construit */
         std::cout << "(" << lnode->Character << "-" << lnode->Number;  /* Affiche le contenu */
         std::cout << "[";
-        if( lnode->Supply != NULL )
+        if( lnode->Supply != NULL ) {
             std::cout << lnode->Supply->Character << "-" << lnode->Supply->Number;  /* Affiche la suppleance */
+        }
+            
         std::cout << "]";
 
         /* Recommencer avec ses fils s'il y en a */
@@ -76,8 +75,7 @@ void LexicographicTree::Print( LexicoNode * lnode )
 *  Fonction recursive permettant d'attacher les pointeurs de suppleance
 *  Supply au noeud correspondant au plus grand bord du prefixe teste.
 */
-void LexicographicTree::BuildSupplys( LexicoNode * lnode )
-{
+void LexicographicTree::BuildSupplys( LexicoNode * lnode ) {
     if( lnode->Childs.GetSize() )  /* Si le noeud n'est pas une feuille */
     {
         for( int count = 0; count < lnode->Childs.GetSize(); count++ )  /* Pour tous ces fils */
@@ -96,8 +94,7 @@ void LexicographicTree::BuildSupplys( LexicoNode * lnode )
 *  Fonction de recherche et d'attachement du pointeur suppleance pour
 *  un noeud donne.
 */
-void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child )
-{
+void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child ) {
     LexicoNode * nextNode;
     
     if( snode->Supply == NULL )  /* Si la suppleance du noeud de suppleance du pere n'existe pas */
@@ -125,8 +122,7 @@ void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child )
 /*
 * Constructeur vide, creation de l'arbre vide
 */
-LexicographicTree::LexicographicTree( void )
-{
+LexicographicTree::LexicographicTree( void ) {
   Ncount = 0;
 
   Root = NewLexicoNode();
@@ -140,8 +136,8 @@ LexicographicTree::LexicographicTree( void )
 /*
 * Destructeur
 */
-LexicographicTree::~LexicographicTree( void )
-{}
+LexicographicTree::~LexicographicTree( void ) {
+}
 
 
 /*
@@ -184,8 +180,7 @@ void LexicographicTree::AddWord( String & new_word ) {
 *  Permet d'attacher le pointeur Supply de chacun des noeuds
 *  au noeud correspondant au plus grand bord.
 */
-void LexicographicTree::BuildSupplys( void )
-{
+void LexicographicTree::BuildSupplys( void ) {
   BuildSupplys( Root );
 }
 
@@ -193,8 +188,7 @@ void LexicographicTree::BuildSupplys( void )
 /*
 * Fonction d'affichage pour le debug
 */
-void LexicographicTree::Print( void )
-{
+void LexicographicTree::Print( void ) {
     Print( Root );
     std::cout << std::endl;
 }
@@ -205,8 +199,7 @@ void LexicographicTree::Print( void )
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-Vector<String *> & LexicographicTree::Transition( char newCharacter )
-{
+Vector<String *> & LexicographicTree::Transition( char newCharacter ) {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */

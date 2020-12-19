@@ -11,17 +11,17 @@
 class File_To_Buffer : private std::fstream {
 private:
 
-  void Open( char * , int );
-  void Close( int );
+    void Open( char * , int );
+    void Close( int );
 
 public:
 
-  File_To_Buffer( void ){};
+    File_To_Buffer( void ){};
+    
+    virtual ~File_To_Buffer( void ){};
 
-  virtual ~File_To_Buffer( void ){};
-
-  String Load( char * );
-  void Save( char *, String & );
+    String Load( char * );
+    void Save( char *, String & );
 
     std::string Load2stdstring( char * );
 };
@@ -32,8 +32,7 @@ public:
 *  Ouvre le fichier suivant les specifications donnees
 *  en argument.
 */
-void File_To_Buffer::Open( char * name, int mask )
-{
+void File_To_Buffer::Open( char * name, int mask ) {
   open( name, mask );
 
 //  if( !is_open() )
@@ -48,15 +47,13 @@ void File_To_Buffer::Open( char * name, int mask )
 * Close():
 *  Ferme le fichier correspondant a la classe
 */
-void File_To_Buffer::Close( int error )
-{
-  if( error || fail() )
-    {
+void File_To_Buffer::Close( int error ) {
+    if( error || fail() ) {
         std::cerr << "Something strange happened\n";
         clear();
     }
-
-  close();
+    
+    close();
 }
 
 
@@ -67,18 +64,17 @@ void File_To_Buffer::Close( int error )
 * Load( char * ):
 *  Remplie le Buffer avec le fichier donne en argument
 */
-String File_To_Buffer::Load( char * name )
-{
+String File_To_Buffer::Load( char * name ) {
     Open( name, std::ios::in );
-  String buffer;
-  char c;
+    String buffer;
+    char c;
 
-  while( !eof() && (( c=get() ) != '\377' ))
-    buffer += c;
+    while( !eof() && (( c=get() ) != '\377' ))
+        buffer += c;
   
-  Close( !eof() );
-
-  return buffer;
+    Close( !eof() );
+    
+    return buffer;
 }
 
 std::string File_To_Buffer::Load2stdstring( char * file_name ) {
@@ -95,16 +91,14 @@ std::string File_To_Buffer::Load2stdstring( char * file_name ) {
 * Save( char * ):
 *  Remplie le fichier donne en argument avec le Buffer
 */
-void File_To_Buffer::Save( char * name, String & buffer )
-{
+void File_To_Buffer::Save( char * name, String & buffer ) {
     Open( name, std::ios::out );
 
-  for( int count = 0; count < buffer.GetSize(); count++ )
-    {
-      put( buffer[ count ] );
+    for( int count = 0; count < buffer.GetSize(); count++ ) {
+        put( buffer[ count ] );
     }
-
-  Close( 0 );
+    
+    Close( 0 );
 }
       
 #endif /* __FILE_TO_BUFFER_HH__ */
