@@ -20,24 +20,25 @@
 class LexicographicTree {
 private:
 
-  int Ncount;  /* Nombre de noeuds de l'arbre */
-  LexicoNode * Scanner;  /* Pointeur servant a se deplacer dans l'arbre */
-  LexicoNode * Root;  /* Racine de l'arbre */
+    int Ncount;  /* Nombre de noeuds de l'arbre */
+    LexicoNode * Scanner;  /* Pointeur servant a se deplacer dans l'arbre */
+    LexicoNode * Root;  /* Racine de l'arbre */
 
-  LexicoNode * NewLexicoNode( void );
-  void Print( LexicoNode * );
-  void BuildSupplys( LexicoNode * );
-  void FindSupply( LexicoNode *, LexicoNode * );
+    LexicoNode * NewLexicoNode( void );
+    void Print( LexicoNode * );
+    void BuildSupplys( LexicoNode * );
+    void FindSupply( LexicoNode *, LexicoNode * );
 
 public:
 
-  LexicographicTree( void );
-  ~LexicographicTree( void );
-
-  void AddWord( const std::string & );
-  void BuildSupplys( void );
-  void Print( void );
-  std::vector<std::string *> & Transition( char );
+    LexicographicTree( void );
+    ~LexicographicTree( void );
+    
+    void AddWord( const std::string & );
+    void BuildSupplys( void );
+    void Print( void );
+    std::vector<std::string *> & Transition( char );
+    void cancelCurrentSearch( void );
 };
 
 
@@ -218,6 +219,10 @@ std::vector<std::string *> & LexicographicTree::Transition( char newCharacter ) 
             return Transition( newCharacter );  /* recursivement avec son noeud de suppleance */
         }
     }
+}
+
+void LexicographicTree::cancelCurrentSearch( void ) {
+    Scanner = Root;
 }
 
 

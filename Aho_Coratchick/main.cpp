@@ -34,16 +34,17 @@ int main(int argc, char **argv) {
     int place = 1; /* Compteur de deplacement sur une ligne */
     int words = 1;
 
-    for (int count = 0; count < file_buffer.size(); count++, place++) /* Pour toutes les lettres du texte */
+    for(char& c : file_buffer) /* Pour toutes les lettres du texte */
     {
-        if (file_buffer[count] == '\n') /* si fin de ligne */
+        if (c == '\n') /* si fin de ligne */
         {
+            lt.cancelCurrentSearch();
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
         }
         else /* si non */
         {
-            std::vector<std::string *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
+            std::vector<std::string *> &result = lt.Transition(c); /* Calculer la transition */
 
             for (int lcount = int(result.size() - 1); lcount >= 0; lcount--) /* Afficher tous les resultats */
             {
@@ -52,6 +53,8 @@ int main(int argc, char **argv) {
                 std::cout << " ---> ligne " << line;
                 std::cout << " en position " << (place - result[lcount]->size()) << std::endl;
             }
+
+            place++;
         }
     }
 }
