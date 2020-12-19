@@ -1,4 +1,5 @@
 #include <string>
+#include <vector>
 
 #include "lexicographic_tree.hh"
 #include "file_to_buffer.hh"
@@ -41,9 +42,9 @@ int main(int argc, char **argv) {
         }
         else /* si non */
         {
-            Vector<String *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
+            std::vector<String *> &result = lt.Transition(file_buffer[count]); /* Calculer la transition */
 
-            for (int lcount = result.GetSize() - 1; lcount >= 0; lcount--) /* Afficher tous les resultats */
+            for (int lcount = int(result.size() - 1); lcount >= 0; lcount--) /* Afficher tous les resultats */
             {
                 std::cout << words++ << "_ ";
                 std::cout << *(result[lcount]);

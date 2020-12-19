@@ -12,6 +12,8 @@
 
 #include "lexico_node.hh"
 
+#include <vector>
+
 
 class LexicographicTree {
 private:
@@ -33,7 +35,7 @@ public:
   void AddWord( String & );
   void BuildSupplys( void );
   void Print( void );
-  Vector<String *> & Transition( char );
+  std::vector<String *> & Transition( char );
 };
 
 
@@ -61,7 +63,7 @@ void LexicographicTree::Print( LexicoNode * lnode ) {
         std::cout << "]";
 
         /* Recommencer avec ses fils s'il y en a */
-        for( int count = 0; count < lnode->Childs.GetSize(); count++ ) {
+        for( int count = 0; count < lnode->Childs.size(); count++ ) {
             Print( lnode->Childs[ count ] );
         }
 
@@ -76,9 +78,9 @@ void LexicographicTree::Print( LexicoNode * lnode ) {
 *  Supply au noeud correspondant au plus grand bord du prefixe teste.
 */
 void LexicographicTree::BuildSupplys( LexicoNode * lnode ) {
-    if( lnode->Childs.GetSize() )  /* Si le noeud n'est pas une feuille */
+    if( lnode->Childs.size() )  /* Si le noeud n'est pas une feuille */
     {
-        for( int count = 0; count < lnode->Childs.GetSize(); count++ )  /* Pour tous ces fils */
+        for( int count = 0; count < lnode->Childs.size(); count++ )  /* Pour tous ces fils */
         {
             if( lnode->Childs[ count ]->Supply == NULL )  /* si la suppleance n'est pas calculee */
                 FindSupply( lnode->Supply, lnode->Childs[ count ] );  /* la chercher */
@@ -104,7 +106,7 @@ void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child ) {
         if( child != nextNode )                          /* noeud contenant la lettre de son fils, et que */
         {                                                /* ce noeud n'est pas le fils, alors ce noeud */
             child->Supply = nextNode;                    /* devient le noeud de suppleance du fils. */
-            child->State += child->Supply->State;        /* Le fils ajoute a ses etats terminaux ceux de son noeud de suppleance */
+            child->State.insert( child->State.end(), child->Supply->State.begin(), child->Supply->State.end());        /* Le fils ajoute a ses etats terminaux ceux de son noeud de suppleance */
         } else {                                         /* si le noeud est le fils, alors la suppleance du fils est Root. */
             child->Supply = Root;
         }
@@ -166,12 +168,12 @@ void LexicographicTree::AddWord( String & new_word ) {
             newNode = NewLexicoNode();
             newNode->Number = Ncount++;
             newNode->Character = currentCharacter;
-            currentNode->Childs += newNode;
+            currentNode->Childs.push_back( newNode );
             newNode->Father = currentNode;
             currentNode = newNode;
         }
     }
-    currentNode->State += new_word.SelfCopy();  /* On ajoute le mot a la liste des etats terminaux */
+    currentNode->State.push_back( new_word.SelfCopy() );  /* On ajoute le mot a la liste des etats terminaux */
 }                                               /* du dernier noeud trouve */
 
 
@@ -199,7 +201,7 @@ void LexicographicTree::Print( void ) {
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-Vector<String *> & LexicographicTree::Transition( char newCharacter ) {
+std::vector<String *> & LexicographicTree::Transition( char newCharacter ) {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */
