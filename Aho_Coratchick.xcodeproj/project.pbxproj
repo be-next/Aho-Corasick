@@ -25,6 +25,12 @@
 /* Begin PBXFileReference section */
 		0291FF4B25868BCD00940BFF /* Aho_Coratchick */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Aho_Coratchick; sourceTree = BUILT_PRODUCTS_DIR; };
 		0291FF4E25868BCD00940BFF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		0291FF5725868D5900940BFF /* lexico_node.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexico_node.hh; sourceTree = "<group>"; };
+		0291FF5825868D5900940BFF /* file_to_buffer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_to_buffer.hh; sourceTree = "<group>"; };
+		0291FF5925868D5900940BFF /* lexicographic_tree.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexicographic_tree.hh; sourceTree = "<group>"; };
+		0291FF5A25868D7400940BFF /* vector.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hh; sourceTree = "<group>"; };
+		0291FF5B25868D7400940BFF /* quicksort.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = quicksort.hh; sourceTree = "<group>"; };
+		0291FF5C25868D7400940BFF /* string.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string.hh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +63,12 @@
 		0291FF4D25868BCD00940BFF /* Aho_Coratchick */ = {
 			isa = PBXGroup;
 			children = (
+				0291FF5B25868D7400940BFF /* quicksort.hh */,
+				0291FF5C25868D7400940BFF /* string.hh */,
+				0291FF5A25868D7400940BFF /* vector.hh */,
+				0291FF5825868D5900940BFF /* file_to_buffer.hh */,
+				0291FF5725868D5900940BFF /* lexico_node.hh */,
+				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
 				0291FF4E25868BCD00940BFF /* main.cpp */,
 			);
 			path = Aho_Coratchick;
@@ -131,7 +143,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -190,7 +202,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
