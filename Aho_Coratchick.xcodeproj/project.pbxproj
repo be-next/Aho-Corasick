@@ -28,7 +28,6 @@
 		0291FF5725868D5900940BFF /* lexico_node.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexico_node.hh; sourceTree = "<group>"; };
 		0291FF5825868D5900940BFF /* file_to_buffer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_to_buffer.hh; sourceTree = "<group>"; };
 		0291FF5925868D5900940BFF /* lexicographic_tree.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexicographic_tree.hh; sourceTree = "<group>"; };
-		0291FF5A25868D7400940BFF /* vector.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector.hh; sourceTree = "<group>"; };
 		0291FF5B25868D7400940BFF /* quicksort.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = quicksort.hh; sourceTree = "<group>"; };
 		0291FF5C25868D7400940BFF /* string.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = string.hh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,7 +64,6 @@
 			children = (
 				0291FF5B25868D7400940BFF /* quicksort.hh */,
 				0291FF5C25868D7400940BFF /* string.hh */,
-				0291FF5A25868D7400940BFF /* vector.hh */,
 				0291FF5825868D5900940BFF /* file_to_buffer.hh */,
 				0291FF5725868D5900940BFF /* lexico_node.hh */,
 				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
