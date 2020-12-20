@@ -12,6 +12,7 @@ class File_To_Buffer : private std::fstream {
 private:
 
     void Open( char * , int );
+    void Open( const std::string & , int );
     void Close( int );
 
 public:
@@ -21,7 +22,7 @@ public:
     virtual ~File_To_Buffer( void ){};
 
     String Load( char * );
-    void Save( char *, String & );
+    void Save( const std::string & , const std::string & );
 
     std::string Load2stdstring( char * );
 };
@@ -40,6 +41,10 @@ void File_To_Buffer::Open( char * name, int mask ) {
 //      cerr << "Cannot open input file \"" << name << "\"\n";
 //      exit( 1 );
 //    }
+}
+
+void File_To_Buffer::Open( const std::string & file_name, int mask ) {
+    open( file_name.data(), mask );
 }
 
 
@@ -83,6 +88,7 @@ std::string File_To_Buffer::Load2stdstring( char * file_name ) {
     std::stringstream strStream;
     strStream << this->rdbuf(); //read the file
     
+    this->Close( 0 );
     return strStream.str();
 }
 
@@ -91,14 +97,12 @@ std::string File_To_Buffer::Load2stdstring( char * file_name ) {
 * Save( char * ):
 *  Remplie le fichier donne en argument avec le Buffer
 */
-void File_To_Buffer::Save( char * name, String & buffer ) {
-    Open( name, std::ios::out );
+void File_To_Buffer::Save( const std::string & file_name, const std::string & buffer ) {
+    this->Open( file_name, std::ios::out );
 
-    for( int count = 0; count < buffer.GetSize(); count++ ) {
-        put( buffer[ count ] );
-    }
+    (*this) << buffer;
     
-    Close( 0 );
+    this->Close( 0 );
 }
       
 #endif /* __FILE_TO_BUFFER_HH__ */

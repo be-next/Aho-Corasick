@@ -6,6 +6,7 @@
 *  La racine de l'arbre Root est consideree comme l'etat initial et le mot vide.
 */
 
+#pragma once
 
 #ifndef __LEXICOGRAPHIC_TREE_HH__
 #define __LEXICOGRAPHIC_TREE_HH__
@@ -15,6 +16,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <sstream>
 
 
 class LexicographicTree {
@@ -26,6 +28,7 @@ private:
 
     LexicoNode * NewLexicoNode( void );
     void Print( LexicoNode * );
+    const std::stringstream _getGraphVizDescription_rec( LexicoNode * );
     void BuildSupplys( LexicoNode * );
     void FindSupply( LexicoNode *, LexicoNode * );
 
@@ -37,6 +40,7 @@ public:
     void AddWord( const std::string & );
     void BuildSupplys( void );
     void Print( void );
+    const std::string getGraphVizDescription( void );
     std::vector<std::string *> & Transition( char );
     void cancelCurrentSearch( void );
 };
@@ -66,12 +70,57 @@ void LexicographicTree::Print( LexicoNode * lnode ) {
         std::cout << "]";
 
         /* Recommencer avec ses fils s'il y en a */
-        for( int count = 0; count < lnode->Childs.size(); count++ ) {
-            Print( lnode->Childs[ count ] );
+        for( LexicoNode * ln_rec : lnode->_children ) {
+            Print( ln_rec );
         }
 
         std::cout << ")";
     }
+}
+
+const std::stringstream LexicographicTree::_getGraphVizDescription_rec( LexicoNode * lnode ) {
+    std::stringstream strStream;
+    
+    if( lnode != NULL ) {
+        // Dessin du noeud courant
+        if (lnode->Character == '\0' ) { // cas particulier pour le noeud racine
+            strStream << lnode->Number << " [ label=\" NULL \" ]" << std::endl;
+        } else {
+            strStream << lnode->Number << " [ label=\" " << lnode->Character << " \" ]" << std::endl;
+        }
+        
+        // Tracé des liens entre le noeud courant et ses fils
+        for( LexicoNode * lnode_child : lnode->_children ) {
+            strStream << lnode->Number << " -> " << lnode_child->Number << std::endl;
+            strStream << _getGraphVizDescription_rec( lnode_child ).str();
+        }
+        
+        // Tracé du lien, en rouge, vers le noeud de suppléance
+        strStream << lnode->Number << " -> " << lnode->Supply->Number << " [ color = red ] " << std::endl;
+        
+        // Dessin des mots terminaux dans des boites bleues
+        for( std::string * str : lnode->State ) {
+            strStream << long(str) << " [ shape=box, color=blue, label=\"" << (*str) << "\" ]" << std::endl;
+            strStream << lnode->Number << " -> " << long(str) << " [ color=blue ] " << std::endl;
+        }
+    }
+    
+    return strStream;
+}
+
+// 
+const std::string LexicographicTree::getGraphVizDescription( void ) {
+    std::stringstream strStream;
+    
+    strStream << "digraph finite_state_machine {" << std::endl;
+    strStream << "ratio = auto;" << std::endl;
+    strStream << "node [shape = circle];" << std::endl;
+    
+    strStream << _getGraphVizDescription_rec( Root ).str();
+    
+    strStream << "}" << std::endl;
+    
+    return strStream.str();
 }
 
 
@@ -81,14 +130,12 @@ void LexicographicTree::Print( LexicoNode * lnode ) {
 *  Supply au noeud correspondant au plus grand bord du prefixe teste.
 */
 void LexicographicTree::BuildSupplys( LexicoNode * lnode ) {
-    if( lnode->Childs.size() )  /* Si le noeud n'est pas une feuille */
-    {
-        for( int count = 0; count < lnode->Childs.size(); count++ )  /* Pour tous ces fils */
-        {
-            if( lnode->Childs[ count ]->Supply == NULL )  /* si la suppleance n'est pas calculee */
-                FindSupply( lnode->Supply, lnode->Childs[ count ] );  /* la chercher */
+    if( lnode->_children.size() ) { /* Si le noeud n'est pas une feuille */
+        for( LexicoNode * ln_rec : lnode->_children ) { /* Pour tous ces fils */
+            if( ln_rec->Supply == NULL )  /* si la suppleance n'est pas calculee */
+                FindSupply( lnode->Supply, ln_rec );  /* la chercher */
             
-            BuildSupplys( lnode->Childs[ count ] );  /* recommencer avec le fils */
+            BuildSupplys( ln_rec );  /* recommencer avec le fils */
         }
     }
 }
@@ -120,8 +167,6 @@ void LexicographicTree::FindSupply( LexicoNode * snode, LexicoNode * child ) {
             FindSupply( snode->Supply, child );  /* si non, on recherche la suppleance du fils avec la suppleance */
     }                                            /* de la suppleance du pere recursivement. */
 }
-
-/**************************** Services **************************/
 
 
 /*
@@ -163,7 +208,7 @@ void LexicographicTree::AddWord( const std::string & new_word ) {
             currentNode = nextNode;  /* On descend dans l'arbre */
     }
     
-    if( nextNode == NULL ) { /* s'il n'existe pas de noeud correspondant a la lettre */
+    if( nextNode == NULL ) {  /* S'il n'existe pas de noeud correspondant a la lettre */
         LexicoNode * newNode; /* On cree un nouveau noeud avec la lettre en question */
         
         for( --count ; count < new_word.size(); count++ ) {
@@ -171,14 +216,14 @@ void LexicographicTree::AddWord( const std::string & new_word ) {
             newNode = NewLexicoNode();
             newNode->Number = Ncount++;
             newNode->Character = currentCharacter;
-            currentNode->Childs.push_back( newNode );
+            currentNode->_children.push_back( newNode );
             newNode->Father = currentNode;
             currentNode = newNode;
         }
     }
     
     currentNode->State.push_back( new std::string( new_word ) );  /* On ajoute le mot a la liste des etats terminaux */
-}                                               /* du dernier noeud trouve */
+}                                                                 /* du dernier noeud trouve */
 
 
 /*

@@ -14,7 +14,7 @@
 class LexicoNode {
 private:
     
-    LexicoNode * Dicho( char &, int, int );
+    LexicoNode * Dicho( const char &, int, int );
     
 public:
 
@@ -25,7 +25,7 @@ public:
     char Character;  /* Variable contenant le caractere */
     LexicoNode * Supply;  /* Pointeur sur le noeud de suppleance */
     LexicoNode * Father;  /* Pointeur sur le noeud pere */
-    std::vector<LexicoNode *> Childs;  /* Tableau trie des noeuds fils */
+    std::vector<LexicoNode *> _children;  /* Tableau trie des noeuds fils */
 
 
     LexicoNode( void );
@@ -34,7 +34,7 @@ public:
     int operator <= ( LexicoNode & );
     int operator > ( LexicoNode & );
 
-    LexicoNode * TestChilds( char );
+    LexicoNode * TestChilds( const char & );
 
 };
 
@@ -42,15 +42,15 @@ public:
 //
 // Fonction de recherche dichotomique
 //
-LexicoNode * LexicoNode::Dicho( char & to_search, int down, int up ) {
+LexicoNode * LexicoNode::Dicho( const char & to_search, int down, int up ) {
     if( down <= up )  /* si la borne basse est plus petite que la borne haute */
     {
         int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
         
-        if( to_search == Childs[ center ]->Character )  /* si le char cherche = le char du milieu */
-            return Childs[ center ];                      /* alors retourner son LexicoNode */
+        if( to_search == _children[ center ]->Character )  /* si le char cherche = le char du milieu */
+            return _children[ center ];                      /* alors retourner son LexicoNode */
         else                                            /* si non */
-            if( to_search < Childs[ center ]->Character ) /* si le char cherche est plus petit */
+            if( to_search < _children[ center ]->Character ) /* si le char cherche est plus petit */
                 return Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
             else                                          /* si non */
                 return Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
@@ -66,7 +66,7 @@ LexicoNode * LexicoNode::Dicho( char & to_search, int down, int up ) {
 /*
 * Constructeur vide, initialisation du noeud.
 */
-LexicoNode::LexicoNode( void ) : Childs(), State() {
+LexicoNode::LexicoNode( void ) : _children(), State() {
   Character = '\0';  /* Character = caractere NULL */
   Supply    = NULL;  /* Les deux pointeurs pointent sur NULL */
   Father    = NULL;
@@ -85,8 +85,8 @@ LexicoNode::~LexicoNode( void ) {
 *  Teste si un des fils du noeud a comme Character to_search et retourne
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
-LexicoNode * LexicoNode::TestChilds( char to_search ) {
-  return Dicho( to_search, 0, int(Childs.size() -1) );
+LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
+  return Dicho( to_search, 0, int(_children.size() -1) );
 }
 
 
