@@ -6,7 +6,6 @@
 #include <string>
 #include <sstream>
 
-#include "string.hh"
 
 class File_To_Buffer : private std::fstream {
 private:
@@ -21,10 +20,9 @@ public:
     
     virtual ~File_To_Buffer( void ){};
 
-    String Load( char * );
     void Save( const std::string & , const std::string & );
 
-    std::string Load2stdstring( char * );
+    std::string Load( char * );
 };
 
 
@@ -68,21 +66,9 @@ void File_To_Buffer::Close( int error ) {
 /*
 * Load( char * ):
 *  Remplie le Buffer avec le fichier donne en argument
-*/
-String File_To_Buffer::Load( char * name ) {
-    Open( name, std::ios::in );
-    String buffer;
-    char c;
-
-    while( !eof() && (( c=get() ) != '\377' ))
-        buffer += c;
-  
-    Close( !eof() );
-    
-    return buffer;
-}
-
-std::string File_To_Buffer::Load2stdstring( char * file_name ) {
+*
+}*/
+std::string File_To_Buffer::Load( char * file_name ) {
     this->Open( file_name, std::ios::in );
     
     std::stringstream strStream;

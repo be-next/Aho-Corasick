@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     
     fb.Save( graph_file_name, lt.getGraphVizDescription());
 
-    file_buffer = fb.Load2stdstring(argv[argc - 1]); /* Chargement du texte */
+    file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     
     
     int line = 1;  /* Compteur de ligne */

@@ -14,11 +14,11 @@
 class LexicoNode {
 private:
     
-    LexicoNode * Dicho( const char &, int, int );
+    LexicoNode * _Dicho( const char &, int, int );
     
 public:
 
-    int Number;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
+    int node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
     std::vector<std::string *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
                               un etat terminal, sinon State contient le ou les mots correspondants
                               a l'etat terminal */
@@ -42,7 +42,7 @@ public:
 //
 // Fonction de recherche dichotomique
 //
-LexicoNode * LexicoNode::Dicho( const char & to_search, int down, int up ) {
+LexicoNode * LexicoNode::_Dicho( const char & to_search, int down, int up ) {
     if( down <= up )  /* si la borne basse est plus petite que la borne haute */
     {
         int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
@@ -51,9 +51,9 @@ LexicoNode * LexicoNode::Dicho( const char & to_search, int down, int up ) {
             return _children[ center ];                      /* alors retourner son LexicoNode */
         else                                            /* si non */
             if( to_search < _children[ center ]->Character ) /* si le char cherche est plus petit */
-                return Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
+                return _Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
             else                                          /* si non */
-                return Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
+                return _Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
     }
     else                                                /* si non */
         return ( LexicoNode * ) NULL;                     /* retourner NULL */
@@ -86,7 +86,7 @@ LexicoNode::~LexicoNode( void ) {
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
 LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
-  return Dicho( to_search, 0, int(_children.size() -1) );
+  return _Dicho( to_search, 0, int(_children.size() -1) );
 }
 
 
