@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0291FF4A25868BCD00940BFF"
-               BuildableName = "Aho_Coratsick"
-               BlueprintName = "Aho_Coratsick"
-               ReferencedContainer = "container:Aho_Coratsick.xcodeproj">
+               BuildableName = "Aho_Corasick"
+               BlueprintName = "Aho_Corasick"
+               ReferencedContainer = "container:Aho_Corasick.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0291FF4A25868BCD00940BFF"
-            BuildableName = "Aho_Coratsick"
-            BlueprintName = "Aho_Coratsick"
-            ReferencedContainer = "container:Aho_Coratsick.xcodeproj">
+            BuildableName = "Aho_Corasick"
+            BlueprintName = "Aho_Corasick"
+            ReferencedContainer = "container:Aho_Corasick.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -56,7 +56,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/jerome/Developer/Aho_Coratchick/Aho_Coratchick/essai2"
+            argument = "&quot;/Users/jerome/Cloud services/Dropbox/16 - dev/03 - git be-next/Aho-Corasick/test/essai2&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0291FF4A25868BCD00940BFF"
-            BuildableName = "Aho_Coratsick"
-            BlueprintName = "Aho_Coratsick"
-            ReferencedContainer = "container:Aho_Coratsick.xcodeproj">
+            BuildableName = "Aho_Corasick"
+            BlueprintName = "Aho_Corasick"
+            ReferencedContainer = "container:Aho_Corasick.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
