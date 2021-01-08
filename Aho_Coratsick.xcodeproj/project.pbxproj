@@ -45,7 +45,7 @@
 		0291FF4225868BCD00940BFF = {
 			isa = PBXGroup;
 			children = (
-				0291FF4D25868BCD00940BFF /* Aho_Coratchick */,
+				0291FF4D25868BCD00940BFF /* Aho_Coratsick */,
 				0291FF4C25868BCD00940BFF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,7 +58,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0291FF4D25868BCD00940BFF /* Aho_Coratchick */ = {
+		0291FF4D25868BCD00940BFF /* Aho_Coratsick */ = {
 			isa = PBXGroup;
 			children = (
 				0291FF5B25868D7400940BFF /* quicksort.hh */,
@@ -67,7 +67,7 @@
 				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
 				0291FF4E25868BCD00940BFF /* main.cpp */,
 			);
-			path = Aho_Coratchick;
+			path = Aho_Coratsick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
