@@ -23,7 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0291FF4B25868BCD00940BFF /* Aho_Coratchick */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Aho_Coratchick; sourceTree = BUILT_PRODUCTS_DIR; };
+		0291FF4B25868BCD00940BFF /* Aho_Coratsick */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Aho_Coratsick; sourceTree = BUILT_PRODUCTS_DIR; };
 		0291FF4E25868BCD00940BFF /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		0291FF5725868D5900940BFF /* lexico_node.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexico_node.hh; sourceTree = "<group>"; };
 		0291FF5825868D5900940BFF /* file_to_buffer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_to_buffer.hh; sourceTree = "<group>"; };
@@ -53,7 +53,7 @@
 		0291FF4C25868BCD00940BFF /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0291FF4B25868BCD00940BFF /* Aho_Coratchick */,
+				0291FF4B25868BCD00940BFF /* Aho_Coratsick */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		0291FF4A25868BCD00940BFF /* Aho_Coratchick */ = {
+		0291FF4A25868BCD00940BFF /* Aho_Coratsick */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0291FF5225868BCD00940BFF /* Build configuration list for PBXNativeTarget "Aho_Coratchick" */;
+			buildConfigurationList = 0291FF5225868BCD00940BFF /* Build configuration list for PBXNativeTarget "Aho_Coratsick" */;
 			buildPhases = (
 				0291FF4725868BCD00940BFF /* Sources */,
 				0291FF4825868BCD00940BFF /* Frameworks */,
@@ -85,9 +85,9 @@
 			);
 			dependencies = (
 			);
-			name = Aho_Coratchick;
+			name = Aho_Coratsick;
 			productName = Aho_Coratchick;
-			productReference = 0291FF4B25868BCD00940BFF /* Aho_Coratchick */;
+			productReference = 0291FF4B25868BCD00940BFF /* Aho_Coratsick */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -103,7 +103,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0291FF4625868BCD00940BFF /* Build configuration list for PBXProject "Aho_Coratchick" */;
+			buildConfigurationList = 0291FF4625868BCD00940BFF /* Build configuration list for PBXProject "Aho_Coratsick" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -116,7 +116,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				0291FF4A25868BCD00940BFF /* Aho_Coratchick */,
+				0291FF4A25868BCD00940BFF /* Aho_Coratsick */,
 			);
 		};
 /* End PBXProject section */
@@ -269,7 +269,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0291FF4625868BCD00940BFF /* Build configuration list for PBXProject "Aho_Coratchick" */ = {
+		0291FF4625868BCD00940BFF /* Build configuration list for PBXProject "Aho_Coratsick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0291FF5025868BCD00940BFF /* Debug */,
@@ -278,7 +278,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		0291FF5225868BCD00940BFF /* Build configuration list for PBXNativeTarget "Aho_Coratchick" */ = {
+		0291FF5225868BCD00940BFF /* Build configuration list for PBXNativeTarget "Aho_Coratsick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0291FF5325868BCD00940BFF /* Debug */,
