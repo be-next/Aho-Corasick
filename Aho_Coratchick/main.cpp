@@ -12,48 +12,43 @@ int main(int argc, char **argv) {
         std::cerr << argv[0] << " world_1 [ world_2 ... world_n ] file_name" << std::endl;
         exit(1);
     }
-    
+ 
+    std::string graph_file_name( "/Users/jerome/Developer/Aho_Coratchick/Aho_Coratchick/graph.plot" );
     std::string file_buffer;
     std::string buffer;
     File_To_Buffer fb;
     LexicographicTree lt;
     
-    for (int count = 1; count < argc - 1; count++) /* Pour tous les mots a chercher */
-    {
+    for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
         lt.AddWord(buffer); /* Les ajouter a l'arbre lexicographique */
     }
 
     lt.BuildSupplys(); /* Calcul des suppleances */
     lt.Print();        /* Affichage de l'arbre */
+    
+    fb.Save( graph_file_name, lt.getGraphVizDescription());
 
-    file_buffer = fb.Load2stdstring(argv[argc - 1]); /* Chargement du texte */
+    file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     
     
     int line = 1;  /* Compteur de ligne */
     int place = 1; /* Compteur de deplacement sur une ligne */
     int words = 1;
 
-    for(char& c : file_buffer) /* Pour toutes les lettres du texte */
-    {
-        if (c == '\n') /* si fin de ligne */
-        {
-            lt.cancelCurrentSearch();
+    for(char& c : file_buffer) { /* Pour toutes les lettres du texte */
+        if (c == '\n') { /* si fin de ligne */
+            lt.cancelCurrentSearch(); // Repositionne le scanner sur le noeud racine
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
-        }
-        else /* si non */
-        {
-            std::vector<std::string *> &result = lt.Transition(c); /* Calculer la transition */
-
-            for (int lcount = int(result.size() - 1); lcount >= 0; lcount--) /* Afficher tous les resultats */
-            {
+        } else {/* si non */
+            for( std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
                 std::cout << words++ << "_ ";
-                std::cout << *(result[lcount]);
+                std::cout << *(str);
                 std::cout << " ---> ligne " << line;
-                std::cout << " en position " << (place - result[lcount]->size()) << std::endl;
+                std::cout << " en position " << (place - str->size()) << std::endl;
             }
-
+            
             place++;
         }
     }
