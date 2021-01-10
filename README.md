@@ -1,5 +1,4 @@
 # Aho & Corasick
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/038495b66f4c42b599a66566fd6f1b83)](https://app.codacy.com/gh/be-next/Aho-Corasick?utm_source=github.com&utm_medium=referral&utm_content=be-next/Aho-Corasick&utm_campaign=Badge_Grade_Settings)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/be-next/Aho_Coratchick/blob/main/LICENSE)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/039887e3c4824f67af003c3797f5785d)](https://www.codacy.com/gh/be-next/Aho-Corasick/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=be-next/Aho-Corasick&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/038495b66f4c42b599a66566fd6f1b83)](https://app.codacy.com/gh/be-next/Aho-Corasick?utm_source=github.com&utm_medium=referral&utm_content=be-next/Aho-Corasick&utm_campaign=Badge_Grade_Settings)
