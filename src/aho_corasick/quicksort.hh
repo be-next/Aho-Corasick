@@ -31,7 +31,7 @@ void QuickSort<Container_Type, Enclose_Type>::R_QuickSort( Container_Type & tab,
 {
   int find_to_up = begin+1;
   int find_to_down = end;
-  int up_limit, down_limit;
+  int up_limit = 0, down_limit = 0;
   
   if( begin < end )
     {

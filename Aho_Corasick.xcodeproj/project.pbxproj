@@ -29,6 +29,7 @@
 		0291FF5825868D5900940BFF /* file_to_buffer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_to_buffer.hh; sourceTree = "<group>"; };
 		0291FF5925868D5900940BFF /* lexicographic_tree.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexicographic_tree.hh; sourceTree = "<group>"; };
 		0291FF5B25868D7400940BFF /* quicksort.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = quicksort.hh; sourceTree = "<group>"; };
+		029B5CA025AA1804003A5CC9 /* find.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = find.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +46,7 @@
 		0291FF4225868BCD00940BFF = {
 			isa = PBXGroup;
 			children = (
-				0291FF4D25868BCD00940BFF /* Aho_Corasick */,
+				0291FF4D25868BCD00940BFF /* src */,
 				0291FF4C25868BCD00940BFF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -58,7 +59,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0291FF4D25868BCD00940BFF /* Aho_Corasick */ = {
+		0291FF4D25868BCD00940BFF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				029B5C9E25AA1764003A5CC9 /* bn_std */,
+				029B5CA625AB0B72003A5CC9 /* aho_corasick */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		029B5C9E25AA1764003A5CC9 /* bn_std */ = {
+			isa = PBXGroup;
+			children = (
+				029B5CA025AA1804003A5CC9 /* find.hpp */,
+			);
+			path = bn_std;
+			sourceTree = "<group>";
+		};
+		029B5CA625AB0B72003A5CC9 /* aho_corasick */ = {
 			isa = PBXGroup;
 			children = (
 				0291FF5B25868D7400940BFF /* quicksort.hh */,
@@ -67,7 +85,7 @@
 				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
 				0291FF4E25868BCD00940BFF /* main.cpp */,
 			);
-			path = Aho_Corasick;
+			path = aho_corasick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

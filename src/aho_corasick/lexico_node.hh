@@ -18,13 +18,13 @@ private:
     
 public:
 
-    int node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
-    std::vector<std::string *> State;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+    int _node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
+    std::vector<std::string *> _state;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
                               un etat terminal, sinon State contient le ou les mots correspondants
                               a l'etat terminal */
-    char Character;  /* Variable contenant le caractere */
-    LexicoNode * Supply;  /* Pointeur sur le noeud de suppleance */
-    LexicoNode * Father;  /* Pointeur sur le noeud pere */
+    char _character;  /* Variable contenant le caractere */
+    LexicoNode * _supply;  /* Pointeur sur le noeud de suppleance */
+    LexicoNode * _father;  /* Pointeur sur le noeud pere */
     std::vector<LexicoNode *> _children;  /* Tableau trie des noeuds fils */
 
 
@@ -33,6 +33,9 @@ public:
 
     int operator <= ( LexicoNode & );
     int operator > ( LexicoNode & );
+    int operator < ( LexicoNode & );
+    int operator == ( LexicoNode & );
+    int operator == ( char const & );
 
     LexicoNode * TestChilds( const char & );
 
@@ -47,10 +50,10 @@ LexicoNode * LexicoNode::_Dicho( const char & to_search, int down, int up ) {
     {
         int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
         
-        if( to_search == _children[ center ]->Character )  /* si le char cherche = le char du milieu */
+        if( to_search == _children[ center ]->_character )  /* si le char cherche = le char du milieu */
             return _children[ center ];                      /* alors retourner son LexicoNode */
         else                                            /* si non */
-            if( to_search < _children[ center ]->Character ) /* si le char cherche est plus petit */
+            if( to_search < _children[ center ]->_character ) /* si le char cherche est plus petit */
                 return _Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
             else                                          /* si non */
                 return _Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
@@ -66,10 +69,11 @@ LexicoNode * LexicoNode::_Dicho( const char & to_search, int down, int up ) {
 /*
 * Constructeur vide, initialisation du noeud.
 */
-LexicoNode::LexicoNode( void ) : _children(), State() {
-  Character = '\0';  /* Character = caractere NULL */
-  Supply    = NULL;  /* Les deux pointeurs pointent sur NULL */
-  Father    = NULL;
+LexicoNode::LexicoNode( void ) : _children(), _state() {
+    _character = '\0';  /* Character = caractere NULL */
+    _supply    = NULL;  /* Les deux pointeurs pointent sur NULL */
+    _father    = NULL;
+    _node_id   = 0;
 }
 
 
@@ -94,7 +98,7 @@ LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
 * Definition de l'operateur <=
 */
 int LexicoNode::operator <= ( LexicoNode & instance ) {
-  if( Character <= instance.Character )
+  if( _character <= instance._character )
     return 1;
   else
     return 0;
@@ -105,10 +109,37 @@ int LexicoNode::operator <= ( LexicoNode & instance ) {
 * Definition de l'operateur >
 */
 int LexicoNode::operator > ( LexicoNode & instance ) {
-  if( Character > instance.Character )
+  if( _character > instance._character )
     return 1;
   else
     return 0;
+}
+
+/*
+ * Define < operator in order to use std::sort to sort _children std::vector
+ */
+int LexicoNode::operator < ( LexicoNode & instance ) {
+    if( _character < instance._character )
+        return 1;
+    else
+        return 0;
+}
+
+/*
+ * Define == operator in order to implement find function on _children std::vector
+ */
+int LexicoNode::operator == ( LexicoNode & instance ) {
+    if( _character == instance._character )
+        return 1;
+    else
+        return 0;
+}
+
+int LexicoNode::operator == ( char const & c ) {
+    if( _character == c )
+        return 1;
+    else
+        return 0;
 }
 
 
