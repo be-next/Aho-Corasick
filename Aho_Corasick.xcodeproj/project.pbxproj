@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,8 +28,8 @@
 		0291FF5725868D5900940BFF /* lexico_node.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexico_node.hh; sourceTree = "<group>"; };
 		0291FF5825868D5900940BFF /* file_to_buffer.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = file_to_buffer.hh; sourceTree = "<group>"; };
 		0291FF5925868D5900940BFF /* lexicographic_tree.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexicographic_tree.hh; sourceTree = "<group>"; };
-		0291FF5B25868D7400940BFF /* quicksort.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = quicksort.hh; sourceTree = "<group>"; };
 		029B5CA025AA1804003A5CC9 /* find.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = find.hpp; sourceTree = "<group>"; };
+		029B5CBC25AD8D9F003A5CC9 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +50,7 @@
 				0291FF4C25868BCD00940BFF /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		0291FF4C25868BCD00940BFF /* Products */ = {
 			isa = PBXGroup;
@@ -62,8 +63,10 @@
 		0291FF4D25868BCD00940BFF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0291FF4E25868BCD00940BFF /* main.cpp */,
 				029B5C9E25AA1764003A5CC9 /* bn_std */,
 				029B5CA625AB0B72003A5CC9 /* aho_corasick */,
+				029B5CBC25AD8D9F003A5CC9 /* CMakeLists.txt */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -79,11 +82,9 @@
 		029B5CA625AB0B72003A5CC9 /* aho_corasick */ = {
 			isa = PBXGroup;
 			children = (
-				0291FF5B25868D7400940BFF /* quicksort.hh */,
 				0291FF5825868D5900940BFF /* file_to_buffer.hh */,
 				0291FF5725868D5900940BFF /* lexico_node.hh */,
 				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
-				0291FF4E25868BCD00940BFF /* main.cpp */,
 			);
 			path = aho_corasick;
 			sourceTree = "<group>";
@@ -122,7 +123,7 @@
 				};
 			};
 			buildConfigurationList = 0291FF4625868BCD00940BFF /* Build configuration list for PBXProject "Aho_Corasick" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -269,6 +270,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBM82764H6;
 				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -280,6 +282,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MBM82764H6;
 				ENABLE_HARDENED_RUNTIME = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
