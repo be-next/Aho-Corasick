@@ -13,7 +13,7 @@ cmake_minimum_required(VERSION 3.0)
 # Project name
 project(aho_corasick)
 
-include_directories(./aho_corasick)
+include_directories(./src/aho_corasick)
 
 set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 
@@ -21,12 +21,12 @@ set(EXECUTABLE_OUTPUT_PATH bin/${CMAKE_BUILD_TYPE})
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SRCS aho_corasick/main.cpp)
+set(SRCS ./src/main.cpp)
     
 set(HEADERS
-    aho_corasick/file_to_buffer.hh
-    aho_corasick/lexico_node.hh
-    aho_corasick/lexicographic_tree.hh
+    ./src/aho_corasick/file_to_buffer.hh
+    ./src/aho_corasick/lexico_node.hh
+    ./src/aho_corasick/lexicographic_tree.hh
     )
 
 add_executable(aho_corasick ${SRCS} ${HEADERS})
