@@ -30,7 +30,6 @@
 		0291FF5925868D5900940BFF /* lexicographic_tree.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = lexicographic_tree.hh; sourceTree = "<group>"; };
 		029B5CA025AA1804003A5CC9 /* find.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = find.hpp; sourceTree = "<group>"; };
 		029B5CBC25AD8D9F003A5CC9 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
-		029B5CBD25AD9A24003A5CC9 /* CMakeLists.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = CMakeLists.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +63,7 @@
 		0291FF4D25868BCD00940BFF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				0291FF4E25868BCD00940BFF /* main.cpp */,
 				029B5C9E25AA1764003A5CC9 /* bn_std */,
 				029B5CA625AB0B72003A5CC9 /* aho_corasick */,
 				029B5CBC25AD8D9F003A5CC9 /* CMakeLists.txt */,
@@ -85,8 +85,6 @@
 				0291FF5825868D5900940BFF /* file_to_buffer.hh */,
 				0291FF5725868D5900940BFF /* lexico_node.hh */,
 				0291FF5925868D5900940BFF /* lexicographic_tree.hh */,
-				0291FF4E25868BCD00940BFF /* main.cpp */,
-				029B5CBD25AD9A24003A5CC9 /* CMakeLists.txt */,
 			);
 			path = aho_corasick;
 			sourceTree = "<group>";
