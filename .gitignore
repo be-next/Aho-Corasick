@@ -1,4 +1,19 @@
 #
+# Project's specific files to ignore
+#
+
+# XCode workspace configuration, created with cmake
+*.xcodeproj
+
+# xcbuild directory (used by XCode)
+*.build
+build
+
+# Project binary directory
+bin
+
+
+#
 # C++ files to ignore
 #
 
