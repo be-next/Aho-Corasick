@@ -1,8 +1,12 @@
 /*
-* Classe LexicographicTree:
+* Class LexicographicTree:
 *  Cette classe est un arbre lexicographique, elle permet de construire un
 *  automate base sur l'algorithme de Aho et Corasick.
 *
+ 
+ it is used to implement the AC algorithm.
+ Le root of this tree is the initial state and the empty word.
+ 
 *  La racine de l'arbre Root est consideree comme l'etat initial et le mot vide.
 */
 
@@ -22,9 +26,9 @@
 class LexicographicTree {
 private:
 
-    int _nCount;  /* Nombre de noeuds de l'arbre */
-    LexicoNode * _scanner;  /* Pointeur servant a se deplacer dans l'arbre */
-    LexicoNode * _root;  /* Racine de l'arbre */
+    int _nCount;  /* Number of nodes in the tree // Nombre de noeuds de l'arbre */
+    LexicoNode * _scanner;  /* Pointer used to move within the tree // Pointeur servant a se deplacer dans l'arbre */
+    LexicoNode * _root;  /* Root // Racine de l'arbre */
 
     LexicoNode * _NewLexicoNode( void );
     void _Print( LexicoNode * );
@@ -128,10 +132,12 @@ const std::string LexicographicTree::getGraphVizDescription( void ) {
 * void BuildSupplys( LexicoNode * lnode ):
 *  Fonction recursive permettant d'attacher les pointeurs de suppleance
 *  Supply au noeud correspondant au plus grand bord du prefixe teste.
+ 
+ Recursive function used to attach pointers to the node corresponding to the bigest edge of the prefix being tested
 */
 void LexicographicTree::_BuildSupplys( LexicoNode * lnode ) {
     
-    std::sort( lnode->_children.begin(), lnode->_children.end());
+    //std::sort( lnode->_children.begin(), lnode->_children.end());
     
     if( lnode->_children.size() ) { /* Si le noeud n'est pas une feuille */
         for( LexicoNode * ln_rec : lnode->_children ) { /* Pour tous ces fils */
