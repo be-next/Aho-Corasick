@@ -1,4 +1,8 @@
-
+#
+# To clean up copy of the repository, do :
+#   git clean -d -f -x
+# this command remove all files and directories created by cmake and build process
+#
 # On Mac OS, if you get this error:
 #   No CMAKE_C_COMPILER could be found
 # do
