@@ -13,7 +13,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
  
-    std::string graph_file_name( "/Users/jerome/Developer/Aho_Coratchick/Aho_Coratchick/graph.plot" );
+    std::string graph_file_name( "./graph.plot" );
     std::string file_buffer;
     std::string buffer;
     File_To_Buffer fb;
