@@ -1,5 +1,10 @@
+/**
+ *
+ *
+ * @author Jérôme Ramette
+ */
+
 #include <string>
-#include <vector>
 #include <iostream>
 
 #include "lexicographic_tree.hh"
@@ -16,12 +21,13 @@ int main(int argc, char **argv) {
     std::string graph_file_name( "./graph.plot" );
     std::string file_buffer;
     std::string buffer;
-    File_To_Buffer fb;
-    LexicographicTree lt;
+    aho_corasick::File_To_Buffer fb;
+    aho_corasick::LexicographicTree lt;
     
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
         lt.AddWord(buffer); /* Les ajouter a l'arbre lexicographique */
+        //lt.AddWord(std::string("test"));
     }
 
     lt.BuildSupplys(); /* Calcul des suppleances */
