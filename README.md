@@ -5,11 +5,11 @@
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/be-next/Aho-Corasick)
 
+## Introduction
 
-# About
-Naïve but easy to read implementation of Aho & Corasick algorithm.
+Easy to read implementation of Aho & Corasick algorithm.
 
-# Usage
+## Usage
 
 ```cpp
  LexicographicTree lt;
@@ -23,12 +23,12 @@ Naïve but easy to read implementation of Aho & Corasick algorithm.
  lt.AddWord( "caa" );
 ```
 
-## How to visualize lexicographic tree
+### How to visualize lexicographic tree
 
 ```sh
-$ dot -Tpng graph.plot > graph.png
+> dot -Tpng graph.plot > graph.png
 ```
 
-# Further reading
+## Further reading
 
-
+- [Aho-Corasick white paper](http://cr.yp.to/bib/1975/aho.pdf), from Bell technologies

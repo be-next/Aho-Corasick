@@ -1,32 +1,38 @@
-/*
-*  Classe LexicoNode:
-*   Cette classe represente un noeud dans l'arbre lexicographique.
-*   Elle est munie d'une fonction de recherche dichotomique sur ses fils.
-*/
+/**
+ *  Classe LexicoNode:
+ *   Cette classe represente un noeud dans l'arbre lexicographique.
+ *   Elle est munie d'une fonction de recherche dichotomique sur ses fils.
+ *
+ * @author Jérôme Ramette
+ */
 
+#pragma once
 
-#ifndef __LEXICO_NODE_HH__
-#define __LEXICO_NODE_HH__
+//#ifndef __LEXICO_NODE_HH__
+//#define __LEXICO_NODE_HH__
 
-#include <vector>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+
+namespace aho_corasick {
 
 class LexicoNode {
 private:
     
-    LexicoNode * _Dicho( const char &, int, int );
-    
 public:
 
     int _node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
-    std::vector<std::string *> _state;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+    
+    // Replace vector by unordered_set
+    std::unordered_set<std::string *> _state;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
                               un etat terminal, sinon State contient le ou les mots correspondants
                               a l'etat terminal */
     char _character;  /* Variable contenant le caractere */
     LexicoNode * _supply;  /* Pointeur sur le noeud de suppleance */
     LexicoNode * _father;  /* Pointeur sur le noeud pere */
-    std::vector<LexicoNode *> _children;  /* Tableau trie des noeuds fils */
-
+    
+    std::unordered_map<char, LexicoNode *> _children; // Children nodes
 
     LexicoNode( void );
     ~LexicoNode( void );
@@ -42,25 +48,7 @@ public:
 };
 
 
-//
-// Fonction de recherche dichotomique
-//
-LexicoNode * LexicoNode::_Dicho( const char & to_search, int down, int up ) {
-    if( down <= up )  /* si la borne basse est plus petite que la borne haute */
-    {
-        int center = ( down + up ) / 2;  /* Trouver le milieu des 2 bornes */
-        
-        if( to_search == _children[ center ]->_character )  /* si le char cherche = le char du milieu */
-            return _children[ center ];                      /* alors retourner son LexicoNode */
-        else                                            /* si non */
-            if( to_search < _children[ center ]->_character ) /* si le char cherche est plus petit */
-                return _Dicho( to_search, down, center -1 ); /* alors recommencer dans la moitie basse */
-            else                                          /* si non */
-                return _Dicho( to_search, center +1, up );   /* recommencer dans la moitie haute */
-    }
-    else                                                /* si non */
-        return ( LexicoNode * ) NULL;                     /* retourner NULL */
-}
+
 
 
 /**************************** Services **************************/
@@ -90,7 +78,15 @@ LexicoNode::~LexicoNode( void ) {
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
 LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
-  return _Dicho( to_search, 0, int(_children.size() -1) );
+    std::unordered_map<char, LexicoNode *>::iterator it;
+    
+    it = _children.find( to_search );
+    
+    if( it != _children.end() ) {
+        return it->second;
+    } else {
+        return NULL;
+    }
 }
 
 
@@ -114,6 +110,7 @@ int LexicoNode::operator > ( LexicoNode & instance ) {
   else
     return 0;
 }
+
 
 /*
  * Define < operator in order to use std::sort to sort _children std::vector
@@ -142,5 +139,7 @@ int LexicoNode::operator == ( char const & c ) {
         return 0;
 }
 
+} // end of aho_corasick namespace
 
-#endif /* __LEXICO_NODE_HH__ */
+
+//#endif /* __LEXICO_NODE_HH__ */

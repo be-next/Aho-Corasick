@@ -1,10 +1,15 @@
-#ifndef __FILE_TO_BUFFER_HH__
-#define __FILE_TO_BUFFER_HH__
+
+#pragma once
+
+//#ifndef __FILE_TO_BUFFER_HH__
+//#define __FILE_TO_BUFFER_HH__
 
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
+
+namespace aho_corasick {
 
 
 class File_To_Buffer : private std::fstream {
@@ -90,6 +95,8 @@ void File_To_Buffer::Save( const std::string & file_name, const std::string & bu
     
     this->Close( 0 );
 }
+
+} // end of aho_corasick namespace
       
-#endif /* __FILE_TO_BUFFER_HH__ */
+//#endif /* __FILE_TO_BUFFER_HH__ */
 
