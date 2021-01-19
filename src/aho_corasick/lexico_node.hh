@@ -35,15 +35,19 @@ public:
     std::unordered_map<char, LexicoNode *> _children; // Children nodes
 
     LexicoNode( void );
+    LexicoNode( int, char, LexicoNode *);
     ~LexicoNode( void );
 
     int operator <= ( LexicoNode & );
     int operator > ( LexicoNode & );
     int operator < ( LexicoNode & );
     int operator == ( LexicoNode & );
-    int operator == ( char const & );
+    int operator == ( const char& );
 
-    LexicoNode * TestChilds( const char & );
+    LexicoNode * addChild( LexicoNode * );
+    LexicoNode * TestChilds( const char& );
+    
+    const char& getCharacter( void );
 
 };
 
@@ -64,6 +68,13 @@ LexicoNode::LexicoNode( void ) : _children(), _state() {
     _node_id   = 0;
 }
 
+LexicoNode::LexicoNode( int new_node_id, char new_character, LexicoNode * new_father ) : _children(), _state() {
+    _character = new_character;
+    _supply    = NULL;
+    _father    = new_father;
+    _node_id   = new_node_id;
+}
+
 
 /*
 * Destructeur
@@ -78,14 +89,18 @@ LexicoNode::~LexicoNode( void ) {
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
 LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
-    std::unordered_map<char, LexicoNode *>::iterator it;
-    
-    it = _children.find( to_search );
+    auto it = _children.find( to_search );
     
     if( it != _children.end() ) {
         return it->second;
     } else {
         return NULL;
+    }
+}
+
+LexicoNode * LexicoNode::addChild( LexicoNode * new_child ) {
+    if( auto [iter, wasAdded] = _children.insert({new_child->_character, new_child}); !wasAdded ) {
+        return new_child;
     }
 }
 
@@ -138,6 +153,11 @@ int LexicoNode::operator == ( char const & c ) {
     else
         return 0;
 }
+
+const char& LexicoNode::getCharacter( void ) {
+    return _character;
+}
+
 
 } // end of aho_corasick namespace
 

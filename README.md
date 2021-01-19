@@ -7,20 +7,25 @@
 
 ## Introduction
 
-Easy to read implementation of Aho & Corasick algorithm.
+There are a lot of Aho & Corasick algorithm implementations in many langages.
+Easy to read and easy to use implementation of Aho & Corasick algorithm.
+
+## Why another Aho & Corasick implementation ?
+
+- Function to convert trie in DataViz graph file. This file can be converted in picture.
 
 ## Usage
 
 ```cpp
- LexicographicTree lt;
+ aho_corasick::LexicographicTree lt;
  
- lt.AddWord( "a" );
- lt.AddWord( "ab" );
- lt.AddWord( "bab" );
- lt.AddWord( "bc" );
- lt.AddWord( "bca" );
- lt.AddWord( "c" );
- lt.AddWord( "caa" );
+ lt.addWord( "a" );
+ lt.addWord( "ab" );
+ lt.addWord( "bab" );
+ lt.addWord( "bc" );
+ lt.addWord( "bca" );
+ lt.addWord( "c" );
+ lt.addWord( "caa" );
 ```
 
 ### How to visualize lexicographic tree

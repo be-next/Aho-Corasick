@@ -18,7 +18,7 @@ int main(int argc, char **argv) {
         exit(1);
     }
  
-    std::string graph_file_name( "./graph.plot" );
+    //std::string graph_file_name( "./graph.plot" );
     std::string file_buffer;
     std::string buffer;
     aho_corasick::File_To_Buffer fb;
@@ -26,14 +26,16 @@ int main(int argc, char **argv) {
     
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
-        lt.AddWord(buffer); /* Les ajouter a l'arbre lexicographique */
+        lt.addWord(buffer); /* Les ajouter a l'arbre lexicographique */
         //lt.AddWord(std::string("test"));
     }
+    
+    fb.Save( "./graph1.plot", lt.getGraphVizDescription( false, true ));
 
     lt.BuildSupplys(); /* Calcul des suppleances */
     lt.Print();        /* Affichage de l'arbre */
     
-    fb.Save( graph_file_name, lt.getGraphVizDescription());
+    fb.Save( "./graph2.plot", lt.getGraphVizDescription());
 
     file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     
