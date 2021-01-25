@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
     
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
-        lt.addWord(buffer); /* Les ajouter a l'arbre lexicographique */
+        lt.addKeyword(buffer); /* Les ajouter a l'arbre lexicographique */
         //lt.AddWord(std::string("test"));
     }
     

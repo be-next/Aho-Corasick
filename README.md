@@ -19,13 +19,13 @@ Easy to read and easy to use implementation of Aho & Corasick algorithm.
 ```cpp
  aho_corasick::LexicographicTree lt;
  
- lt.addWord( "a" );
- lt.addWord( "ab" );
- lt.addWord( "bab" );
- lt.addWord( "bc" );
- lt.addWord( "bca" );
- lt.addWord( "c" );
- lt.addWord( "caa" );
+ lt.addKeyword( "a" );
+ lt.addKeyword( "ab" );
+ lt.addKeyword( "bab" );
+ lt.addKeyword( "bc" );
+ lt.addKeyword( "bca" );
+ lt.addKeyword( "c" );
+ lt.addKeyword( "caa" );
 ```
 
 ### How to visualize lexicographic tree
@@ -33,6 +33,8 @@ Easy to read and easy to use implementation of Aho & Corasick algorithm.
 ```sh
 > dot -Tpng graph.plot > graph.png
 ```
+
+To view [GraphViz](http://www.graphviz.org/) diagrams online, visit this project and try to [use GraphvizOnline online here](http://dreampuf.github.io/GraphvizOnline/).
 
 ## Further reading
 

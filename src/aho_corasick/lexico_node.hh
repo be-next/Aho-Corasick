@@ -19,18 +19,17 @@ namespace aho_corasick {
 
 class LexicoNode {
 private:
+    int _node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
+    char _character;  /* Variable contenant le caractere */
     
 public:
-
-    int _node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
     
-    // Replace vector by unordered_set
-    std::unordered_set<std::string *> _state;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+    std::unordered_set<std::string *> _keywords;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
                               un etat terminal, sinon State contient le ou les mots correspondants
                               a l'etat terminal */
-    char _character;  /* Variable contenant le caractere */
-    LexicoNode * _supply;  /* Pointeur sur le noeud de suppleance */
-    LexicoNode * _father;  /* Pointeur sur le noeud pere */
+    
+    LexicoNode * _failure_node;  /* Pointeur sur le noeud de suppleance */
+    LexicoNode * _father_node;  /* Pointeur sur le noeud pere */
     
     std::unordered_map<char, LexicoNode *> _children; // Children nodes
 
@@ -38,17 +37,14 @@ public:
     LexicoNode( int, char, LexicoNode *);
     ~LexicoNode( void );
 
-    int operator <= ( LexicoNode & );
-    int operator > ( LexicoNode & );
-    int operator < ( LexicoNode & );
-    int operator == ( LexicoNode & );
-    int operator == ( const char& );
-
     LexicoNode * addChild( LexicoNode * );
-    LexicoNode * TestChilds( const char& );
+    LexicoNode * getChild( const char& );
     
     const char& getCharacter( void );
+    const int& getNodeId( void );
 
+    LexicoNode * setFailureNode( LexicoNode * );
+    
 };
 
 
@@ -61,18 +57,18 @@ public:
 /*
 * Constructeur vide, initialisation du noeud.
 */
-LexicoNode::LexicoNode( void ) : _children(), _state() {
-    _character = '\0';  /* Character = caractere NULL */
-    _supply    = NULL;  /* Les deux pointeurs pointent sur NULL */
-    _father    = NULL;
-    _node_id   = 0;
+LexicoNode::LexicoNode( void ) : _children(), _keywords() {
+    _character    = '\0';  /* Character = caractere NULL */
+    _failure_node = NULL;  /* Les deux pointeurs pointent sur NULL */
+    _father_node  = NULL;
+    _node_id      = 0;
 }
 
-LexicoNode::LexicoNode( int new_node_id, char new_character, LexicoNode * new_father ) : _children(), _state() {
-    _character = new_character;
-    _supply    = NULL;
-    _father    = new_father;
-    _node_id   = new_node_id;
+LexicoNode::LexicoNode( int new_node_id, char new_character, LexicoNode * new_father ) : _children(), _keywords() {
+    _character    = new_character;
+    _failure_node = NULL;
+    _father_node  = new_father;
+    _node_id      = new_node_id;
 }
 
 
@@ -88,7 +84,7 @@ LexicoNode::~LexicoNode( void ) {
 *  Teste si un des fils du noeud a comme Character to_search et retourne
 *  un pointeur sur ce dernier, si non, retourne NULL.
 */
-LexicoNode * LexicoNode::TestChilds( const char & to_search ) {
+LexicoNode * LexicoNode::getChild( const char & to_search ) {
     auto it = _children.find( to_search );
     
     if( it != _children.end() ) {
@@ -105,57 +101,22 @@ LexicoNode * LexicoNode::addChild( LexicoNode * new_child ) {
 }
 
 
-/*
-* Definition de l'operateur <=
-*/
-int LexicoNode::operator <= ( LexicoNode & instance ) {
-  if( _character <= instance._character )
-    return 1;
-  else
-    return 0;
-}
-
-
-/*
-* Definition de l'operateur >
-*/
-int LexicoNode::operator > ( LexicoNode & instance ) {
-  if( _character > instance._character )
-    return 1;
-  else
-    return 0;
-}
-
-
-/*
- * Define < operator in order to use std::sort to sort _children std::vector
- */
-int LexicoNode::operator < ( LexicoNode & instance ) {
-    if( _character < instance._character )
-        return 1;
-    else
-        return 0;
-}
-
-/*
- * Define == operator in order to implement find function on _children std::vector
- */
-int LexicoNode::operator == ( LexicoNode & instance ) {
-    if( _character == instance._character )
-        return 1;
-    else
-        return 0;
-}
-
-int LexicoNode::operator == ( char const & c ) {
-    if( _character == c )
-        return 1;
-    else
-        return 0;
-}
-
 const char& LexicoNode::getCharacter( void ) {
     return _character;
+}
+
+const int& LexicoNode::getNodeId( void ) {
+    return _node_id;
+}
+
+LexicoNode * LexicoNode::setFailureNode(LexicoNode * new_failure_node) {
+    _failure_node = new_failure_node;
+    
+    if( _failure_node->_keywords.size() ) {
+        _keywords.insert( _failure_node->_keywords.begin(), _failure_node->_keywords.end() );
+    }
+    
+    return new_failure_node;
 }
 
 
