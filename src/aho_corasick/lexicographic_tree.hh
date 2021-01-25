@@ -211,21 +211,21 @@ LexicographicTree::~LexicographicTree( void ) {
 *  Ajoute un mot dans l'arbre lexicographique
 */
 void LexicographicTree::addKeyword( const std::string & new_keyword ) {
-    int count;
     LexicoNode * currentNode = _root;
     LexicoNode * nextNode = _root; // Pour pas etre a zero !
+    auto it = new_keyword.cbegin();
     
     if( _dictionary.find(new_keyword) == _dictionary.end() ) { // Only if keyword hasn't been already added
         /* Pour toutes les lettres du mot, tant qu'il existe un noeud pour la lettre */
-        for( count = 0; (count < new_keyword.size()) && nextNode != NULL; count++ ) {
-            if( ( nextNode = currentNode->getChild( new_keyword[count] )) != NULL ) {
+        for(; it != new_keyword.cend() && nextNode != NULL; it++ ) {
+            if( ( nextNode = currentNode->getChild( *it )) != NULL ) {
                 currentNode = nextNode;  /* On descend dans l'arbre */
             }
         }
     
         if( nextNode == NULL ) {  /* S'il n'existe pas de noeud correspondant a la lettre */
-            for( --count ; count < new_keyword.size(); count++ ) { /* On cree un nouveau noeud avec la lettre en question */
-                currentNode = currentNode->addChild( new LexicoNode( _nCount++, new_keyword[count], currentNode) );
+            for( --it; it != new_keyword.cend(); it++ ) { // A new node is created with the current keyword's letter
+                currentNode = currentNode->addChild( new LexicoNode( _nCount++, *it, currentNode) );
             }
         }
 
