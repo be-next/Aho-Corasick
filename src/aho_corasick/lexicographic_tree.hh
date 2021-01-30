@@ -47,8 +47,10 @@ public:
     void BuildSupplys( void );
     void Print( void );
     const std::string getGraphVizDescription( bool, bool );
-    std::unordered_set<std::string *> & Transition( char );
+    const std::unordered_set<const std::string *> & Transition( char );
     void cancelCurrentSearch( void );
+    
+    const LexicoNode * getRoot( void );
 };
 
 
@@ -108,7 +110,7 @@ const std::stringstream LexicographicTree::_getGraphVizDescription_rec( LexicoNo
         
         // Dessine les mots terminaux dans des boites bleues
         if( graphWord ) {
-            for( const auto& str : lnode->_keywords ) {
+            for( const auto& str : lnode->getKeywords() ) {
                 strStream << long(str) << " [ shape=box, color=blue, label=\"" << (*str) << "\" ]" << std::endl;
                 strStream << lnode->getNodeId() << " -> " << long(str) << " [ color=blue ] " << std::endl;
             }
@@ -142,11 +144,10 @@ const std::string LexicographicTree::getGraphVizDescription( bool graphSuffix = 
  Recursive function used to attach pointers to the node corresponding to the bigest edge of the prefix being tested
 */
 void LexicographicTree::_BuildSupplys( LexicoNode * lnode ) {
-    
-    if( lnode->_children.size() ) { /* Si le noeud n'est pas une feuille */
+    if( !lnode->isLeaf() ) { /* Si le noeud n'est pas une feuille */
         for( auto [character, child] : lnode->_children ) { // For all of this children
             
-            if( child->_failure_node == NULL ) {  /* si la suppleance n'est pas calculee */
+            if( !child->hasFailureNode() ) {  /* si la suppleance n'est pas calculee */
                 _FindSupply( lnode->_failure_node, child );  /* la chercher */
             }
             
@@ -215,23 +216,22 @@ void LexicographicTree::addKeyword( const std::string & new_keyword ) {
     LexicoNode * nextNode = _root; // Pour pas etre a zero !
     auto it = new_keyword.cbegin();
     
-    if( _dictionary.find(new_keyword) == _dictionary.end() ) { // Only if keyword hasn't been already added
-        /* Pour toutes les lettres du mot, tant qu'il existe un noeud pour la lettre */
-        for(; it != new_keyword.cend() && nextNode != NULL; it++ ) {
-            if( ( nextNode = currentNode->getChild( *it )) != NULL ) {
-                currentNode = nextNode;  /* On descend dans l'arbre */
-            }
+    // Only if keyword hasn't been already added in the tree
+    if( auto [dictionary_it, wasAdded] = _dictionary.emplace( new_keyword ); wasAdded ) {
+        // As long as the current node has a child corresponding to the current keuword's letter (*it)
+        while( (it != new_keyword.cend()) && ((nextNode = currentNode->getChild( *it)) != NULL) ) {
+            currentNode = nextNode; // Go down into the tree following the keyword's letters, node by node
+            it++;
         }
-    
-        if( nextNode == NULL ) {  /* S'il n'existe pas de noeud correspondant a la lettre */
-            for( --it; it != new_keyword.cend(); it++ ) { // A new node is created with the current keyword's letter
-                currentNode = currentNode->addChild( new LexicoNode( _nCount++, *it, currentNode) );
-            }
+        // While it remains letters in the keyword
+        while( it != new_keyword.cend() ) {
+            currentNode = currentNode->addChild( new LexicoNode( _nCount++, *it, currentNode) ); // A new node is added with the current keyword's letter
+            it++;
         }
 
-        _dictionary.emplace( new_keyword );
-        currentNode->_keywords.insert( new std::string( new_keyword ) );  /* On ajoute le mot a la liste des etats terminaux */
-    }                                                                 /* du dernier noeud trouve */
+        // Add the keyword to the set of final states of the last node
+        currentNode->addKeyword( &(*dictionary_it) );
+    }
 }
 
 /*
@@ -258,15 +258,15 @@ void LexicographicTree::Print( void ) {
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-std::unordered_set<std::string *> & LexicographicTree::Transition( char currentCharacter ) {
+const std::unordered_set<const std::string *> & LexicographicTree::Transition( char currentCharacter ) {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */
     if(( nextNode = _scanner->getChild( currentCharacter )) != NULL ) {
-        return ( _scanner = nextNode )->_keywords;  /* on retourne sa liste d'etat */
+        return ( _scanner = nextNode )->getKeywords();  /* on retourne sa liste d'etat */
     } else {
         if( _scanner == _root ) { /* Si le noeud en cours est Root et qu'il n'a pas de fils avec la lettre */
-            return _scanner->_keywords;  /* on retourne sa liste d'etat */
+            return _scanner->getKeywords();  /* on retourne sa liste d'etat */
         } else {
             _scanner = _scanner->_failure_node;  /* si le noeud en cours n'est pas Root, alors on recommence */
             return Transition( currentCharacter );  /* recursivement avec son noeud de suppleance */
@@ -276,6 +276,10 @@ std::unordered_set<std::string *> & LexicographicTree::Transition( char currentC
 
 void LexicographicTree::cancelCurrentSearch( void ) {
     _scanner = _root;
+}
+
+const LexicoNode * LexicographicTree::getRoot( void ) {
+    return _root;
 }
 
 } // end of aho_corasick namespace

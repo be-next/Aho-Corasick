@@ -21,12 +21,12 @@ class LexicoNode {
 private:
     int _node_id;  /* Numero du noeud, sert a identifier le noeud lors de l'affichage de l'arbre */
     char _character;  /* Variable contenant le caractere */
-    
+    std::unordered_set<const std::string *> _keywords;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
+                                                         un etat terminal, sinon State contient le ou les mots correspondants
+                                                         a l'etat terminal */
 public:
     
-    std::unordered_set<std::string *> _keywords;  /* Si la taille de Sate est 0 alors le noeud n'est pas un
-                              un etat terminal, sinon State contient le ou les mots correspondants
-                              a l'etat terminal */
+
     
     LexicoNode * _failure_node;  /* Pointeur sur le noeud de suppleance */
     LexicoNode * _father_node;  /* Pointeur sur le noeud pere */
@@ -44,6 +44,12 @@ public:
     const int& getNodeId( void );
 
     LexicoNode * setFailureNode( LexicoNode * );
+    void addKeyword( const std::string * );
+    
+    const std::unordered_set<const std::string *> & getKeywords( void );
+    
+    bool isLeaf( void );
+    bool hasFailureNode( void );
     
 };
 
@@ -95,9 +101,9 @@ LexicoNode * LexicoNode::getChild( const char & to_search ) {
 }
 
 LexicoNode * LexicoNode::addChild( LexicoNode * new_child ) {
-    if( auto [iter, wasAdded] = _children.insert({new_child->_character, new_child}); !wasAdded ) {
+    if( auto [iter, wasAdded] = _children.insert({new_child->_character, new_child}); wasAdded ) {
         return new_child;
-    }
+    } // else raise an exception ?
 }
 
 
@@ -119,6 +125,21 @@ LexicoNode * LexicoNode::setFailureNode(LexicoNode * new_failure_node) {
     return new_failure_node;
 }
 
+void LexicoNode::addKeyword(const std::string * new_keyword ) {
+    _keywords.insert( new_keyword );
+}
+
+const std::unordered_set<const std::string *> & LexicoNode::getKeywords( void ) {
+    return _keywords;
+}
+
+bool LexicoNode::isLeaf( void ) {
+    return (_children.size() == 0);
+}
+
+bool LexicoNode::hasFailureNode( void ) {
+    return (_failure_node != NULL);
+}
 
 } // end of aho_corasick namespace
 

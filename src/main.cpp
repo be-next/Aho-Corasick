@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
         lt.addKeyword(buffer); /* Les ajouter a l'arbre lexicographique */
-        //lt.AddWord(std::string("test"));
+        lt.addKeyword(std::string("test"));
     }
     
     fb.Save( "./graph1.plot", lt.getGraphVizDescription( false, true ));
@@ -50,7 +50,7 @@ int main(int argc, char **argv) {
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
         } else {/* si non */
-            for( std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
+            for( const std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
                 std::cout << words++ << "_ ";
                 std::cout << *(str);
                 std::cout << " ---> ligne " << line;
