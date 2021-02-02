@@ -9,6 +9,7 @@
 
 #include "lexicographic_tree.hh"
 #include "file_to_buffer.hh"
+#include "display_tools.hh"
 
 int main(int argc, char **argv) {
  
@@ -18,22 +19,25 @@ int main(int argc, char **argv) {
         exit(1);
     }
  
-    std::string graph_file_name( "./graph.plot" );
+    //std::string graph_file_name( "./graph.plot" );
     std::string file_buffer;
     std::string buffer;
     aho_corasick::File_To_Buffer fb;
     aho_corasick::LexicographicTree lt;
+    aho_corasick::DisplayTools dt;
     
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
-        lt.AddWord(buffer); /* Les ajouter a l'arbre lexicographique */
-        //lt.AddWord(std::string("test"));
+        lt.addKeyword(buffer); /* Les ajouter a l'arbre lexicographique */
+//        lt.addKeyword(std::string("test"));
     }
-
-    lt.BuildSupplys(); /* Calcul des suppleances */
-    lt.Print();        /* Affichage de l'arbre */
     
-    fb.Save( graph_file_name, lt.getGraphVizDescription());
+    fb.Save( "./graph1.plot", dt.getGraphVizDescription( lt.getRoot(), false, true ));
+
+    lt.finalize(); /* Calcul des suppleances */
+    dt.Print(lt.getRoot());        /* Affichage de l'arbre */
+    
+    fb.Save( "./graph2.plot", dt.getGraphVizDescription(lt.getRoot()));
 
     file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     
@@ -48,7 +52,7 @@ int main(int argc, char **argv) {
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
         } else {/* si non */
-            for( std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
+            for( const std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
                 std::cout << words++ << "_ ";
                 std::cout << *(str);
                 std::cout << " ---> ligne " << line;
