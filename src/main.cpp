@@ -9,6 +9,7 @@
 
 #include "lexicographic_tree.hh"
 #include "file_to_buffer.hh"
+#include "display_tools.hh"
 
 int main(int argc, char **argv) {
  
@@ -23,19 +24,20 @@ int main(int argc, char **argv) {
     std::string buffer;
     aho_corasick::File_To_Buffer fb;
     aho_corasick::LexicographicTree lt;
+    aho_corasick::DisplayTools dt;
     
     for (int count = 1; count < argc - 1; count++) {/* Pour tous les mots a chercher */
         buffer = argv[count];
         lt.addKeyword(buffer); /* Les ajouter a l'arbre lexicographique */
-        lt.addKeyword(std::string("test"));
+//        lt.addKeyword(std::string("test"));
     }
     
-    fb.Save( "./graph1.plot", lt.getGraphVizDescription( false, true ));
+    fb.Save( "./graph1.plot", dt.getGraphVizDescription( lt.getRoot(), false, true ));
 
-    lt.BuildSupplys(); /* Calcul des suppleances */
-    lt.Print();        /* Affichage de l'arbre */
+    lt.finalize(); /* Calcul des suppleances */
+    dt.Print(lt.getRoot());        /* Affichage de l'arbre */
     
-    fb.Save( "./graph2.plot", lt.getGraphVizDescription());
+    fb.Save( "./graph2.plot", dt.getGraphVizDescription(lt.getRoot()));
 
     file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     

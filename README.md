@@ -26,6 +26,8 @@ Easy to read and easy to use implementation of Aho & Corasick algorithm.
  lt.addKeyword( "bca" );
  lt.addKeyword( "c" );
  lt.addKeyword( "caa" );
+
+ lt.finalize();
 ```
 
 ### How to visualize lexicographic tree

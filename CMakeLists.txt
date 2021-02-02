@@ -23,7 +23,7 @@ project(aho_corasick VERSION 0.1
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-include_directories(./src/aho_corasick ./src/util)
+include_directories(./src/aho_corasick/util ./src/aho_corasick ./src/util)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
@@ -38,6 +38,7 @@ set(HEADERS
     ./src/util/file_to_buffer.hh
     ./src/aho_corasick/lexico_node.hh
     ./src/aho_corasick/lexicographic_tree.hh
+    ./src/aho_corasick/util/display_tools.hh
     )
 
 
