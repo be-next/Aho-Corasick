@@ -19,7 +19,6 @@ int main(int argc, char **argv) {
         exit(1);
     }
  
-    //std::string graph_file_name( "./graph.plot" );
     std::string file_buffer;
     std::string buffer;
     aho_corasick::File_To_Buffer fb;
@@ -32,12 +31,12 @@ int main(int argc, char **argv) {
 //        lt.addKeyword(std::string("test"));
     }
     
-    fb.Save( "./graph1.plot", dt.getGraphVizDescription( lt.getRoot(), false, true ));
+    fb.Save( "./graph1.dot", dt.getGraphVizDescription( lt.getRoot(), false, true ));
 
     lt.finalize(); /* Calcul des suppleances */
-    dt.Print(lt.getRoot());        /* Affichage de l'arbre */
+    std::cout << dt.Print(lt.getRoot()) << std::endl;        /* Affichage de l'arbre */
     
-    fb.Save( "./graph2.plot", dt.getGraphVizDescription(lt.getRoot()));
+    fb.Save( "./graph2.dot", dt.getGraphVizDescription(lt.getRoot()));
 
     file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     
@@ -46,13 +45,13 @@ int main(int argc, char **argv) {
     int place = 1; /* Compteur de deplacement sur une ligne */
     int words = 1;
 
-    for(char& c : file_buffer) { /* Pour toutes les lettres du texte */
+    for(const auto& c : file_buffer) { /* Pour toutes les lettres du texte */
         if (c == '\n') { /* si fin de ligne */
             lt.cancelCurrentSearch(); // Repositionne le scanner sur le noeud racine
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
         } else {/* si non */
-            for( const std::string * str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
+            for( const auto* str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
                 std::cout << words++ << "_ ";
                 std::cout << *(str);
                 std::cout << " ---> ligne " << line;

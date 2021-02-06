@@ -33,7 +33,7 @@ Easy to read and easy to use implementation of Aho & Corasick algorithm.
 ### How to visualize lexicographic tree
 
 ```sh
-> dot -Tpng graph.plot > graph.png
+> dot -Tpng graph.dot > graph.png
 ```
 
 To view [GraphViz](http://www.graphviz.org/) diagrams online, visit this project and try to [use GraphvizOnline online here](http://dreampuf.github.io/GraphvizOnline/).

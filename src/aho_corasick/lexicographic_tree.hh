@@ -34,7 +34,7 @@ private:
 
     void _BuildSupplys( LexicoNode * );
     void _findFailureNode( LexicoNode *, LexicoNode * );
-    void _findFailureNodesOnThisBanchBefore( LexicoNode *);
+    void _findFailureNodesOnThisBranchBefore( LexicoNode *);
 
 public:
 
@@ -89,7 +89,7 @@ void LexicographicTree::_findFailureNode( LexicoNode * snode, LexicoNode * child
         if( child != nextNode )                          /* noeud contenant la lettre de son fils, et que */
         {                                                /* ce noeud n'est pas le fils, alors ce noeud */
             if( !nextNode->hasFailureNode() ) {
-                _findFailureNodesOnThisBanchBefore( nextNode );
+                _findFailureNodesOnThisBranchBefore( nextNode );
             }
             
             child->setFailureNode( nextNode );
@@ -108,7 +108,7 @@ void LexicographicTree::_findFailureNode( LexicoNode * snode, LexicoNode * child
     }
 }
 
-void LexicographicTree::_findFailureNodesOnThisBanchBefore( LexicoNode * node ) {
+void LexicographicTree::_findFailureNodesOnThisBranchBefore( LexicoNode * node ) {
     const LexicoNode * father = node->getFatherNode();
     const LexicoNode * soon = node;
     
@@ -205,7 +205,7 @@ const std::unordered_set<const std::string *> & LexicographicTree::Transition( c
     }
 }
 
-/// Reinit current seaching by setting scanner to the root
+/// Reinit current seach by setting scanner to the root node
 void LexicographicTree::cancelCurrentSearch( void ) {
     _scanner = _root;
 }

@@ -31,7 +31,7 @@ private:
 public:
 
     LexicoNode( void );
-    LexicoNode( int, char, LexicoNode *);
+    explicit LexicoNode( int, char, LexicoNode *);
     ~LexicoNode( void );
 
     LexicoNode * addChild( LexicoNode * );
