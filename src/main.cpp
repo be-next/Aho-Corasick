@@ -51,7 +51,7 @@ int main(int argc, char **argv) {
             line++;    /* incrementer le compteur de ligne */
             place = 1; /* Reinitialiser le compteur de deplacement */
         } else {/* si non */
-            for( const auto* str : lt.Transition(c)) { // Calculer la transition et afficher tous les resultats
+            for( const auto* str : lt.processAndGetOutput(c)) { // Calculer la transition et afficher tous les resultats
                 std::cout << words++ << "_ ";
                 std::cout << *(str);
                 std::cout << " ---> ligne " << line;

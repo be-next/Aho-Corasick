@@ -43,7 +43,7 @@ public:
     
     void addKeyword( const std::string & );
     void finalize( void );
-    const std::unordered_set<const std::string *> & Transition( char ) const;
+    const std::unordered_set<const std::string *> & processAndGetOutput( char ) const;
     void cancelCurrentSearch( void );
     
     const LexicoNode * getRoot( void ) const;
@@ -189,7 +189,7 @@ void LexicographicTree::finalize( void ) {
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-const std::unordered_set<const std::string *> & LexicographicTree::Transition( char currentCharacter ) const {
+const std::unordered_set<const std::string *> & LexicographicTree::processAndGetOutput( char currentCharacter ) const {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */
@@ -200,7 +200,7 @@ const std::unordered_set<const std::string *> & LexicographicTree::Transition( c
             return _scanner->getKeywords();  /* on retourne sa liste vide d'etat */
         } else {
             _scanner = _scanner->getFailureNode();  /* si le noeud en cours n'est pas Root, alors on recommence */
-            return Transition( currentCharacter );  /* recursivement avec son noeud de suppleance */
+            return processAndGetOutput( currentCharacter );  /* recursivement avec son noeud de suppleance */
         }
     }
 }
