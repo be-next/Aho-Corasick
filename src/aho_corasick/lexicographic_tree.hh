@@ -27,14 +27,14 @@ namespace aho_corasick {
 class LexicographicTree {
 private:
 
-    int _nCount;  /* Number of nodes in the tree // Nombre de noeuds de l'arbre */
+    int _nb_nodes;  /* Number of nodes in the tree // Nombre de noeuds de l'arbre */
     mutable LexicoNode * _scanner;  /* Pointer used to move within the tree // Pointeur servant a se deplacer dans l'arbre */
     LexicoNode * _root;  /* Root // Racine de l'arbre */
     std::unordered_set<std::string> _dictionary;
 
     void _BuildSupplys( LexicoNode * );
     void _findFailureNode( LexicoNode *, LexicoNode * );
-    void _findFailureNodesOnThisBanchBefore( LexicoNode *);
+    void _findFailureNodesOnThisBranchBefore( LexicoNode *);
 
 public:
 
@@ -43,7 +43,7 @@ public:
     
     void addKeyword( const std::string & );
     void finalize( void );
-    const std::unordered_set<const std::string *> & Transition( char ) const;
+    const std::unordered_set<const std::string *> & processAndGetOutput( char ) const;
     void cancelCurrentSearch( void );
     
     const LexicoNode * getRoot( void ) const;
@@ -89,7 +89,7 @@ void LexicographicTree::_findFailureNode( LexicoNode * snode, LexicoNode * child
         if( child != nextNode )                          /* noeud contenant la lettre de son fils, et que */
         {                                                /* ce noeud n'est pas le fils, alors ce noeud */
             if( !nextNode->hasFailureNode() ) {
-                _findFailureNodesOnThisBanchBefore( nextNode );
+                _findFailureNodesOnThisBranchBefore( nextNode );
             }
             
             child->setFailureNode( nextNode );
@@ -108,7 +108,7 @@ void LexicographicTree::_findFailureNode( LexicoNode * snode, LexicoNode * child
     }
 }
 
-void LexicographicTree::_findFailureNodesOnThisBanchBefore( LexicoNode * node ) {
+void LexicographicTree::_findFailureNodesOnThisBranchBefore( LexicoNode * node ) {
     const LexicoNode * father = node->getFatherNode();
     const LexicoNode * soon = node;
     
@@ -131,8 +131,8 @@ void LexicographicTree::_findFailureNodesOnThisBanchBefore( LexicoNode * node ) 
 * Constructeur vide, creation de l'arbre vide
 */
 LexicographicTree::LexicographicTree( void ) {
-    _nCount  = 0;
-    _root    = new LexicoNode( _nCount++, '\0', NULL );
+    _nb_nodes  = 0;
+    _root    = new LexicoNode( _nb_nodes++, '\0', NULL );
     _scanner = _root;
     _root->setFailureNode( _root );
 }
@@ -164,7 +164,7 @@ void LexicographicTree::addKeyword( const std::string & new_keyword ) {
         // While it remains letters in the keyword
         while( it != new_keyword.cend() ) {
             // A new node is created with the current letter and added to the children set of the current node
-            currentNode = currentNode->addChild( new LexicoNode( _nCount++, *it, currentNode) );
+            currentNode = currentNode->addChild( new LexicoNode( _nb_nodes++, *it, currentNode) );
             it++;
         }
 
@@ -189,7 +189,7 @@ void LexicographicTree::finalize( void ) {
 *  Fonction de transition permettant de se deplacer
 *  dans l'automate forme par l'arbre lexicographique
 */
-const std::unordered_set<const std::string *> & LexicographicTree::Transition( char currentCharacter ) const {
+const std::unordered_set<const std::string *> & LexicographicTree::processAndGetOutput( char currentCharacter ) const {
     LexicoNode * nextNode;
 
     /* s'il existe un noeud suivant avec la lettre donnee en argument */
@@ -200,12 +200,12 @@ const std::unordered_set<const std::string *> & LexicographicTree::Transition( c
             return _scanner->getKeywords();  /* on retourne sa liste vide d'etat */
         } else {
             _scanner = _scanner->getFailureNode();  /* si le noeud en cours n'est pas Root, alors on recommence */
-            return Transition( currentCharacter );  /* recursivement avec son noeud de suppleance */
+            return processAndGetOutput( currentCharacter );  /* recursivement avec son noeud de suppleance */
         }
     }
 }
 
-/// Reinit current seaching by setting scanner to the root
+/// Reinit current seach by setting scanner to the root node
 void LexicographicTree::cancelCurrentSearch( void ) {
     _scanner = _root;
 }

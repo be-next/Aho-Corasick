@@ -7,11 +7,11 @@ namespace aho_corasick {
 
 class DisplayTools {
 private :
-    void _Print( const LexicoNode * );
+    const std::stringstream _Print( const LexicoNode * );
     const std::stringstream _getGraphVizDescription_rec( const LexicoNode *, bool, bool );
     
 public :
-    void Print( const LexicoNode * root );
+    const std::string Print( const LexicoNode * root );
     const std::string getGraphVizDescription( const LexicoNode *, bool, bool );
 };
 
@@ -19,23 +19,27 @@ public :
  * void Print( LexicoNode * lnode ):
  *  Fonction recursive d'affichage de l'arbre
  */
-void DisplayTools::_Print( const LexicoNode * lnode ) {
+const std::stringstream DisplayTools::_Print( const LexicoNode * lnode ) {
+    std::stringstream str_stream;
+    
     if( lnode != NULL ) { /* Si l'arbre est construit */
-        std::cout << "(" << lnode->getCharacter() << "-" << lnode->getNodeId();  /* Affiche le contenu */
-        std::cout << "[";
+        str_stream << "(" << lnode->getCharacter() << "-" << lnode->getNodeId();  /* Affiche le contenu */
+        str_stream << "[";
         if( lnode->hasFailureNode() ) {
-            std::cout << lnode->getFailureNode()->getCharacter() << "-" << lnode->getFailureNode()->getNodeId();  /* Affiche la suppleance */
+            str_stream << lnode->getFailureNode()->getCharacter() << "-" << lnode->getFailureNode()->getNodeId();  /* Affiche la suppleance */
         }
         
-        std::cout << "]";
+        str_stream << "]";
         
         /* Recommencer avec ses fils s'il y en a */
         for( const auto& [character, child] : lnode->getChildren() ) {
-            _Print( child );
+            str_stream << _Print( child ).str();
         }
         
-        std::cout << ")";
+        str_stream << ")";
     }
+    
+    return str_stream;
 }
 
 const std::stringstream DisplayTools::_getGraphVizDescription_rec( const LexicoNode * lnode, bool graphSuffix = true, bool graphWord = true ) {
@@ -93,9 +97,8 @@ const std::string DisplayTools::getGraphVizDescription( const LexicoNode * lnode
 /*
  * Fonction d'affichage pour le debug
  */
-void DisplayTools::Print( const LexicoNode * root ) {
-    _Print( root );
-    std::cout << std::endl;
+const std::string DisplayTools::Print( const LexicoNode * root ) {
+   return _Print( root ).str();
 }
 
 
