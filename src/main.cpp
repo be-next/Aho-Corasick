@@ -11,6 +11,9 @@
 #include "file_to_buffer.hh"
 #include "display_tools.hh"
 
+#define FILE_NAME1 "./graph1.dot"
+#define FILE_NAME2 "./graph2.dot"
+
 int main(int argc, char **argv) {
  
     if (argc < 3) {
@@ -31,12 +34,12 @@ int main(int argc, char **argv) {
 //        lt.addKeyword(std::string("test"));
     }
     
-    fb.Save( "./graph1.dot", dt.getGraphVizDescription( lt.getRoot(), false, true ));
+    fb.Save( FILE_NAME1, dt.getGraphVizDescription( lt.getRoot(), false, true ));
 
     lt.finalize(); /* Calcul des suppleances */
     std::cout << dt.Print(lt.getRoot()) << std::endl;        /* Affichage de l'arbre */
     
-    fb.Save( "./graph2.dot", dt.getGraphVizDescription(lt.getRoot()));
+    fb.Save( FILE_NAME2, dt.getGraphVizDescription(lt.getRoot()));
 
     file_buffer = fb.Load(argv[argc - 1]); /* Chargement du texte */
     

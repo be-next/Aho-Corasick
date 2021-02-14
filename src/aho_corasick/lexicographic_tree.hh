@@ -27,7 +27,7 @@ namespace aho_corasick {
 class LexicographicTree {
 private:
 
-    int _nCount;  /* Number of nodes in the tree // Nombre de noeuds de l'arbre */
+    int _nb_nodes;  /* Number of nodes in the tree // Nombre de noeuds de l'arbre */
     mutable LexicoNode * _scanner;  /* Pointer used to move within the tree // Pointeur servant a se deplacer dans l'arbre */
     LexicoNode * _root;  /* Root // Racine de l'arbre */
     std::unordered_set<std::string> _dictionary;
@@ -131,8 +131,8 @@ void LexicographicTree::_findFailureNodesOnThisBranchBefore( LexicoNode * node )
 * Constructeur vide, creation de l'arbre vide
 */
 LexicographicTree::LexicographicTree( void ) {
-    _nCount  = 0;
-    _root    = new LexicoNode( _nCount++, '\0', NULL );
+    _nb_nodes  = 0;
+    _root    = new LexicoNode( _nb_nodes++, '\0', NULL );
     _scanner = _root;
     _root->setFailureNode( _root );
 }
@@ -164,7 +164,7 @@ void LexicographicTree::addKeyword( const std::string & new_keyword ) {
         // While it remains letters in the keyword
         while( it != new_keyword.cend() ) {
             // A new node is created with the current letter and added to the children set of the current node
-            currentNode = currentNode->addChild( new LexicoNode( _nCount++, *it, currentNode) );
+            currentNode = currentNode->addChild( new LexicoNode( _nb_nodes++, *it, currentNode) );
             it++;
         }
 

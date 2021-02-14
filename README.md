@@ -33,7 +33,7 @@ In addition, with this code you will find:
 
 - An easy to use, adapt and embed object-oriented implementation.
 - An uncommon recursive implementation of calculating failure nodes (definitely needs improvement).
-- A function to convert tree to a DataViz graph file. This file can be converted in picture, that should be helpful to understand how the aho-coracick algorithm works.
+- A function to convert tree to a DataViz graph file. This file can be converted in picture, that is helpful to understand how the aho-coracick algorithm works.
 
 ## Usage
 
@@ -63,7 +63,7 @@ for(const auto& current_char : text) {
   }
 ```
 
-Each call to `processAndGetOutput` methode returns a "set" of keywords. This set may or may not be empty, depending on whether the last `current_char` reached none, one or more keywords.
+Each call to `processAndGetOutput` methode returns a "set" of keywords. This set may or may not be empty, depending on whether the last `current_char` reached none, one or several keywords.
 
 ### How to visualize lexicographic tree
 
@@ -75,7 +75,7 @@ const std::string DisplayTools::getGraphVizDescription( const LexicoNode * lnode
 
 can be used to transform the tree in to DataViz file that would be used later to draw the tree.
 
-Then use DataViz `dot` command like this:
+Then use GraphViz `dot` command like this:
 
 ```sh
 > dot -Tpng graph1.dot > graph1.png
