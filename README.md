@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/be-next/Aho_Coratchick/blob/main/LICENSE)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/038495b66f4c42b599a66566fd6f1b83)](https://app.codacy.com/gh/be-next/Aho-Corasick?utm_source=github.com&utm_medium=referral&utm_content=be-next/Aho-Corasick&utm_campaign=Badge_Grade_Settings)
-[![c++ version](https://img.shields.io/badge/c%2B%2B-%3E%3D%20c%2B%2B17-blue)](https://img.shields.io/badge/c%2B%2B-%3E%3D%20c%2B%2B17-blue)
+[![c++ version](https://img.shields.io/badge/c%2B%2B-c%2B%2B17-blue)](https://img.shields.io/badge/c%2B%2B-c%2B%2B17-blue)
 
 ![GitHub last commit](https://img.shields.io/github/last-commit/be-next/Aho-Corasick)
 
@@ -16,7 +16,7 @@ In their paper published in 1975, Alfred V. Aho and Margaret J. Corasick describ
 
 Nowaday, this algorithm remains the best one in termes of memory usage and complexity to search lot of patterns simultaneously in one pass. The complexity is linear in the length of the patterns plus the length of the searched text plus the number of output matches.
 
-The famous example is [GNU Grep](https://www.gnu.org/software/grep/manual/html_node/index.html) (cf. [5 Performance](https://www.gnu.org/software/grep/manual/html_node/Performance.html#Performance) page) that uses Aho-Corasick algorithm to match multiple fixed patterns. 
+The famous example is [GNU Grep](https://www.gnu.org/software/grep/manual/html_node/index.html) that uses Aho-Corasick algorithm to match multiple fixed patterns (cf. [GNU Grep Performance](https://www.gnu.org/software/grep/manual/html_node/Performance.html#Performance) page).
 
 ## Why another Aho & Corasick implementation?
 

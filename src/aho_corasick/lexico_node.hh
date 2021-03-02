@@ -8,9 +8,6 @@
 
 #pragma once
 
-//#ifndef __LEXICO_NODE_HH__
-//#define __LEXICO_NODE_HH__
-
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -29,7 +26,6 @@ private:
     LexicoNode * _father_node;  /* Pointeur sur le noeud pere */
     
 public:
-
     LexicoNode( void );
     explicit LexicoNode( int, char, LexicoNode *);
     ~LexicoNode( void );
@@ -51,7 +47,6 @@ public:
     
     const std::unordered_map<char, LexicoNode *> getChildren( void ) const;
     const LexicoNode * getFatherNode( void ) const;
-    
 };
 
 
@@ -160,6 +155,3 @@ const LexicoNode * LexicoNode::getFatherNode( void ) const {
 
 
 } // end of aho_corasick namespace
-
-
-//#endif /* __LEXICO_NODE_HH__ */
