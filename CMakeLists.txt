@@ -7,7 +7,7 @@
 #   No CMAKE_C_COMPILER could be found
 # do
 #   sudo xcode-select --reset
-# I didn't try it, but if you installed CMake from HomeBrew, it sounds that the upgrade force the compiler to be reconfigured:
+# Or, I didn't try it, but if you installed CMake from HomeBrew, it sounds that the upgrade force the compiler to be reconfigured:
 #   $ brew upgrade cmake
 
 
@@ -17,7 +17,7 @@ cmake_minimum_required(VERSION 3.7...3.19)
 
 # Project name
 project(aho_corasick VERSION 0.1
-                     DESCRIPTION "Aho & Corasick algortithm"
+                     DESCRIPTION "Aho & Corasick algorithm"
                      LANGUAGES CXX)
 
 
